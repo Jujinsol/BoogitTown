@@ -1,0 +1,220 @@
+<html>
+
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <link rel="shortcut icon" href="#">
+  <link rel="stylesheet" href="css/style.css">
+  <title>BoogieTown</title>
+  <style>
+    html,
+    body {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f1f8ff;
+      min-width: 400px;
+      /* Login 너비와 동일하게 설정 */
+      min-height: 600px;
+      /* Login 높이와 동일하게 설정 */
+      margin: 0;
+      padding: 0;
+    }
+
+    form {
+      position: absolute;
+      width: 400px;
+      height: 600px;
+      background-color: #ffffff;
+      border-radius: 70px;
+      border: 5px solid #e0f0ff;
+      display: flex;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+
+    table {
+      width: 100%;
+      margin: 45 auto;
+      text-align: center;
+    }
+
+    .Input {
+      margin-bottom: 15px;
+    }
+
+    .Input table {
+      width: 100%;
+      border-collapse: collapse;
+      /* 셀 간의 테두리 겹침 제거 */
+    }
+
+    .Input td {
+      padding: 8px;
+      /* 셀 안쪽 여백 */
+      text-align: center;
+      /* 셀 내용 중앙 정렬 */
+    }
+  </style>
+</head>
+
+<body>
+  <div id="hiddenContent" style="display: none;">
+    <nav class="navbar">
+      <div class="navbar__logo">
+        <a href="index.html"><img src="./img/logo.png" style="height: 100px;"></a>
+      </div>
+      <ul class="navbar__menu">
+        <li><button id="moveButton" onclick="openModal()">빠른이동</button></li>
+        <div class="moveModalContainer">
+          <div class="modal" id="getRoom">
+            <button onclick="CloseModal();">❌</button>
+            <h1>-빠른이동-</h1>
+            <p>최근참여</p>
+            <ul style="padding-left: 0;" id="chatRoomList"></ul>
+          </div>
+        </div>
+        <li><a href=""></a>친구목록</li>
+        <li><a href=""></a>버튼항목</li>
+        <li><button id="makeRoomButton">방만들기</button></li>
+        <div class="roomModalContainer">
+          <form class="modal" id="createRoom">
+            <h1>-방 만들기-</h1>
+            <ul>
+              <li>제목 : <input type="text" id="titleInput" placeholder="방제목을 입력하세요"></li>
+              <button onclick="CloseModal();">취소</button>
+              <button id="submitButton" type="submit">만들기</button>
+            </ul>
+          </form>
+        </div>
+      </ul>
+
+      <i class="fa-solid fa-burger"></i>
+    </nav>
+
+    <div id="wrapper" style="display: flex; height: 100%;">
+      <ul class="Bar">
+        <li>참여자 목록</li>
+        <div id="playerLabels"></div>
+      </ul>
+      <ul style="width: 76%; height:100%; padding:0 5 0 5;">
+        <li style="display: inline-block;  position: relative; width: 100%;">
+          <div id="overlappingDiv" style="
+                background-color: black;
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                opacity: 0;
+                pointer-events: none;
+                z-index: 10;
+              ">
+        </li>
+        <div>
+          <div style="
+                position: absolute;
+                color: white;
+                padding: 8px;
+                font-family: sans-serif;
+                font-size: 14px;
+                user-select: none;
+                background: rgba(0, 0, 0, 0.5);
+              ">
+          </div>
+          <canvas style="width:100%"></canvas>
+
+          <div class="Chat">
+            <div class="chatBox">
+              <h5>hello</h5>
+            </div>
+            <div id="myChatBox">
+              <p>여기에 채팅하세요</p>
+            </div>
+          </div>
+      </ul>
+      <ul class="Bar">
+        <li><button>콘텐츠</button></li>
+      </ul>
+    </div>
+
+  </div>
+  <div id="loginForm" style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      ">
+    <form>
+      <div class="login">
+        <img id="logo" src="img/logo.png" />
+        <div class="Input">
+          <table>
+            <tr>
+              <td id="label-text">이메일 </td>
+              <td><input id="loginEmail" type="email" placeholder="이메일" required></td>
+            </tr>
+            <tr>
+              <td id="label-text">비밀번호 </td>
+              <td><input id="loginPassword" type="password" placeholder="비밀번호" required></td>
+            </tr>
+          </table>
+        </div>
+        <button type="submit" id="loginbutton">로그인</button>
+        <button onclick="goToSignup()" type="button" id="createAccount">계정 생성</button>
+      </div>
+    </form>
+  </div>
+
+
+  <div id="chatRoom" style="
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  ">
+    <h1 id="roomTitle"></h1>
+    <div id="chatMessages" style="overflow-y: auto;height: calc(100% - 100px);">
+
+    </div>
+    <div style="
+      position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        background-color: #fff;
+        padding: 10px;
+        box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        ">
+      <input type="text" id="messageInput" placeholder="메시지를 입력하세요" style="width: 80%;" />
+      <button onclick="sendMessage()">전송</button>
+      <button onclick="exitRoom()">나가기</button>
+    </div>
+  </div>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.2/gsap.min.js"
+  integrity="sha512-kVlGhj2qFy+KBCFuvjBJTGUMxbdqJKs4yK2jh0e0VPhWUPiPC87bzm4THmaaIee3Oj7j6sDpTTgm2EPPiESqBg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+<script src="./js/classes/Enemy.js"></script>
+<script src="./js/classes/Player.js"></script>
+<script src="./js/frontend.js"></script>
+<script src="./js/eventListeners.js"></script>
+<script src="./js/button.js"></script>
+
+</html>

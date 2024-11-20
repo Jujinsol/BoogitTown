@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Signup and Login</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f1f8ff;
+            /* Optional: 배경색 설정 */
+            overflow: hidden;
+            min-width: 400px;
+            /* Login 너비와 동일하게 설정 */
+            min-height: 600px;
+            /* Login 높이와 동일하게 설정 */
+            margin: 0;
+            padding: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="signupForm">
+        <div id="signupFirst">
+            <h2 id="signupTitle">회원가입</h2>
+            <br>
+            <div class="signupInput" style="margin-bottom: 15px;">
+                <table>
+                    <tr>
+                        <td id="label-text">이름 </td>
+                        <td><input id="signupName" type="text" placeholder="이름" required></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td id="msg"></td>
+                    </tr>
+                    <tr>
+                        <td id="label-text">닉네임 </td>
+                        <td><input id="signupNickname" type="text" placeholder="닉네임" required></td>
+                    </tr>
+                    <tr>
+                        <td id="label-text">학번 </td>
+                        <td><input id="signupStudentnum" type="text" placeholder="학번" required></td>
+                    </tr>
+                    <tr>
+                        <td id="label-text">학부 </td>
+                        <td>
+                            <select id="signupMajor">
+                                <option value="IT공과대학">IT공과대학</option>
+                                <option value="인문예술대학">인문예술대학</option>
+                                <option value="인문예술대학">인문예술대학</option>
+                                <option value="사회과학대학">사회과학대학</option>
+                                <option value="디자인대학">디자인대학</option>
+                                <option value="미래플러스대학">미래플러스대학</option>
+                                <option value="상상력교양대학">상상력교양대학</option>
+                                <option value="글로벌인재학부">글로벌인재학부</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td id="label-text">이메일 </td>
+                        <td><input id="signupEmail" type="email" placeholder="이메일" required></td>
+                    </tr>
+                    <tr>
+                        <td id="label-text">비밀번호 </td>
+                        <td><input id="signupPassword" type="password" placeholder="비밀번호" required></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <button onclick="goToIndex()" id="preButton" type="button">이전</button>
+            <button onclick="goToCharacter()" id="nextButton" type="button">다음</button>
+        </div>
+
+        <div id="signupSecond" style="display: none;">
+            <div>
+                <h2 id="title">부기 만들기</h2>
+            </div>
+            <div id="character">
+                <label>
+                    <input type="radio" name="character" value="man1" checked>
+                    <img src="./img/man1.png" alt="Option 1">
+                </label>
+
+                <label>
+                    <input type="radio" name="character" value="man2">
+                    <img src="./img/man2.png" alt="Option 2">
+                </label>
+            </div>
+            <div>
+                <button onclick="goToSignup()" type="button">이전</button>
+                <button type="submit">회원가입</button>
+            </div>
+        </div>
+    </form>
+</body>
+
+<script>
+    // Handle signup form submission
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById('signupEmail').value;
+        const password = document.getElementById('signupPassword').value;
+        const nickname = document.getElementById('signupNickname').value;
+        const name = document.getElementById('signupName').value;
+        const studentnum = document.getElementById('signupStudentnum').value;
+        const major = document.getElementById('signupMajor').value;
+        const character = document.querySelector('input[name="character"]:checked').value;
+
+        const response = await fetch('/signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password, nickname, character, name, studentnum, major })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            document.getElementById('signupForm').reset();
+            alert('Signup successful! You can now log in.');
+            window.location.href = 'index.html';
+        }
+    });
+
+    function goToIndex() {
+        window.location.href = 'index.html';
+    }
+
+    function goToSignup() {
+        document.getElementById('signupSecond').style.display = 'none';
+        document.getElementById('signupFirst').style.display = 'block';
+    }
+
+    function goToCharacter() {
+        document.getElementById('signupSecond').style.display = 'block';
+        document.getElementById('signupFirst').style.display = 'none';
+    }
+
+</script>
+
+</html>

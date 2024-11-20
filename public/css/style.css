@@ -1,0 +1,296 @@
+* {
+    box-sizing: border-box;
+}
+
+input::placeholder {
+    color: #94a3b8;
+}
+
+canvas {
+    width: 1024px;
+    height: 576px;
+    background-image: url('/img/webb-dark.png');
+}
+
+h1 {
+    margin: 0;
+}
+
+button {
+    border: 0;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: white;
+}
+
+button:hover {
+    border-radius: 7px;
+    text-decoration: underline;
+    text-decoration-style: wavy;
+}
+
+:root {
+    --text-color: black;
+    --background-color: #253343;
+    --accent-color: #d49466;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+li {
+    list-style-type: none;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.navbar__logo i {
+    color: wheat;
+}
+
+.navbar__menu {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+.navbar__menu li {
+    padding: 8px 36px;
+    color: white;
+    color: black;
+}
+
+.navbar__icons {
+    list-style: none;
+    color: white;
+    display: flex;
+    padding-left: 0;
+}
+
+.navbar__icons li {
+    padding: 8px 12px;
+}
+
+.navbar__toogleBtn {
+    display: none;
+    position: absolute;
+    right: 32px;
+    font-size: 24px;
+    color: white;
+}
+
+.moveModalContainer,
+.roomModalContainer {
+    display: none;
+    /* 기본적으로 모달을 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 반투명 배경 */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.moveModalContainer.active,
+.roomModalContainer.active {
+    display: flex;
+    /* active 클래스가 추가되면 모달 보임 */
+}
+
+.scriptInput {
+    height: 100px;
+    width: auto;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    resize: none;
+}
+
+.Chat {
+    margin-top: 10;
+}
+
+.chatBox,
+#myChatBox {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10;
+}
+
+.Bar {
+    width: 12%;
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 3px;
+    text-align: center;
+}
+
+.Bar li {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 3px;
+    box-shadow: 5px 2px 2px rgb(182, 182, 182);
+}
+
+#signupForm {
+    position: fixed;
+    width: 550px;
+    height: 600px;
+    background-color: #ffffff;
+    border-radius: 70px;
+    border: 5px solid #e0f0ff;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+#signupTitle {
+    width: 200px;
+    display: block;
+    margin: 0 auto;
+    padding-bottom: 10px;
+}
+
+.signupInput table {
+    width: 100%;
+    margin-left: 5px;
+    border-collapse: collapse;
+}
+
+.signupInput td {
+    text-align: left;
+    width: 350px;
+    padding-bottom: 6px;
+}
+
+.signupInput #label-text {
+    text-align: center;
+    /* 셀 내용 중앙 정렬 */
+}
+
+.signupInput input {
+    height: 25px;
+    width: 150px;
+}
+
+#preButton,
+#nextButton {
+    width: 100px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 10px;
+    ;
+}
+
+#preButton {
+    margin-top: 30px;
+    /* 로그인 버튼 위쪽 간격 */
+    margin-right: 80px;
+    background-color: #006AFF;
+    color: #ffffff;
+}
+
+#preButton:hover {
+    background-color: #012E6D;
+    color: #ffffff;
+}
+
+#nextButton {
+    background-color: #006AFF;
+    color: #ffffff;
+}
+
+#nextButton:hover {
+    background-color: #012E6D;
+    color: #ffffff;
+}
+
+/* HIDE RADIO */
+[type=radio] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* IMAGE STYLES */
+[type=radio]+img {
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+}
+
+/* CHECKED STYLES */
+[type=radio]:checked+img {
+    outline: 2px solid #006AFF;
+}
+
+
+/* 전체 버튼 스타일 */
+#loginbutton,
+#createAccount {
+    width: 50%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 10px;
+    ;
+}
+
+/*로그인 버튼*/
+#loginbutton {
+    margin-top: 50px;
+    /* 로그인 버튼 위쪽 간격 */
+    background-color: #006AFF;
+    color: #ffffff;
+}
+
+#loginbutton:hover {
+    background-color: #012E6D;
+    color: #ffffff;
+}
+
+/*계정생성 버튼*/
+#createAccount {
+    background-color: #ffffff;
+    text-decoration: underline;
+    /* 밑줄 추가 */
+    text-underline-offset: 3px;
+    /* 밑줄과 텍스트 사이 간격 */
+}
+
+/* 로고 이미지 가운데 정렬 */
+#logo {
+    width: 200px;
+    display: block;
+    margin: 0 auto;
+    padding-bottom: 60px;
+}
