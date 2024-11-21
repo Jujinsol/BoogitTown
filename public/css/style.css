@@ -1,5 +1,6 @@
 /* #region about login */
-html,body {
+html,
+body {
     height: 100%;
     width: 100%;
     display: flex;
@@ -13,14 +14,17 @@ html,body {
     margin: 0;
     padding: 0;
 }
+
 #loginForm form {
     width: 400px;
     height: 600px;
     background-color: #ffffff;
     border-radius: 70px;
     border: 5px solid #e0f0ff;
-    display: flex; /* 플렉스 박스 활성화 */
-    flex-direction: column; /* 내용물을 세로로 정렬 */
+    display: flex;
+    /* 플렉스 박스 활성화 */
+    flex-direction: column;
+    /* 내용물을 세로로 정렬 */
     text-align: center;
     align-items: center;
     justify-content: center;
@@ -95,28 +99,32 @@ html,body {
 
 /* #region about main content */
 
-header{
+header {
     position: fixed;
     top: 0px;
     left: 0;
-    z-index: 10; /* 다른 요소들보다 위에 표시 */
+    z-index: 10;
+    /* 다른 요소들보다 위에 표시 */
     display: inline-flex;
-    flex-direction:row;
+    flex-direction: row;
     align-items: center;
-    justify-content:flex-start; 
-    padding:10px;
+    justify-content: flex-start;
+    padding: 10px;
     width: 100%;
     height: max-content;
     box-sizing: border-box;
 }
-header #logo{
-    height: 120px; /* 로고 크기 조정 */
+
+header #logo {
+    height: 120px;
+    /* 로고 크기 조정 */
     width: 210px;
     margin: 10px 40px 0px 40px;
 }
+
 header .top2 {
     display: inline-flex;
-    flex-direction:row;
+    flex-direction: row;
     height: 120px;
     width: 360px;
     border-radius: 10px;
@@ -125,7 +133,8 @@ header .top2 {
     margin-left: 15px;
     margin-right: 20px;
 }
-.top2 #date{
+
+.top2 #date {
     padding: 10px;
     margin-left: 5px;
     font-weight: bold;
@@ -133,23 +142,28 @@ header .top2 {
     text-align: center;
     color: #333;
 }
-.top2 #line1{
+
+.top2 #line1 {
     padding-left: 5px;
     padding-right: 5px;
     font-size: 24px;
 }
+
 .top2 #line2 {
     width: 135px;
     font-size: 50px;
     margin-top: 5px;
 }
+
 header #status {
     display: flex;
-    flex-direction: column; /* 현재 시간과 참가자 수를 세로로 배치 */
+    flex-direction: column;
+    /* 현재 시간과 참가자 수를 세로로 배치 */
     padding: 10px;
     margin-right: 10px;
 }
-#status #time{
+
+#status #time {
     display: inline-flex;
     flex-direction: row;
     font-size: 16px;
@@ -158,35 +172,45 @@ header #status {
     color: #333;
     gap: 5px;
 }
-#time #hhmm{
+
+#time #hhmm {
     font-size: 56px;
 }
-#time #ampm{
+
+#time #ampm {
     bottom: 0;
 }
-#participants{
-    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+
+#participants {
+    white-space: nowrap;
+    /* 텍스트를 한 줄로 유지 */
     display: inline-flex;
-    flex-direction:row;
+    flex-direction: row;
     vertical-align: middle;
     padding: 3px;
-    font-weight:500;
+    font-weight: 500;
     gap: 8px;
 }
-#participants #people{
-    overflow: hidden; /* 넘치는 텍스트 숨기기 */
-    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+
+#participants #people {
+    overflow: hidden;
+    /* 넘치는 텍스트 숨기기 */
+    white-space: nowrap;
+    /* 텍스트를 한 줄로 유지 */
     cursor: pointer;
     border-radius: 5px;
     background-color: #d9d9d9;
     color: #252525;
     font-weight: 700;
     text-align: right;
-    padding : 0 5px 0 30px;
+    padding: 0 5px 0 30px;
 }
+
 header .notice {
-    overflow: hidden; /* 넘치는 텍스트 숨기기 */
-    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    overflow: hidden;
+    /* 넘치는 텍스트 숨기기 */
+    white-space: nowrap;
+    /* 텍스트를 한 줄로 유지 */
     height: 120px;
     width: 54%;
     border-radius: 10px;
@@ -194,13 +218,15 @@ header .notice {
     border-color: #d9d9d9;
     margin-right: 20px;
 }
+
 /* 브라우저 창의 너비가 600px 이하일 때 숨김 */
 @media screen and (max-width: 880px) {
     .notice {
         display: none;
     }
 }
-.notice #title{
+
+.notice #title {
     overflow: hidden;
     font-weight: bold;
     font-size: 20px;
@@ -208,9 +234,10 @@ header .notice {
     height: 25px;
     vertical-align: center;
 }
-.notice #notice{
+
+.notice #notice {
     margin: 10px;
-    padding: 0 5px 0 5px ;
+    padding: 0 5px 0 5px;
     display: flex;
     overflow: hidden;
     width: auto;
@@ -221,6 +248,7 @@ header .notice {
     font-size: 16px;
     text-align: center;
 }
+
 header .menu {
     display: inline-flex;
     align-items: center;
@@ -230,19 +258,25 @@ header .menu {
     border: 1px solid;
     border-color: #d9d9d9;
 }
-.menu table{
+
+.menu table {
     height: 100%;
     padding: 5px;
 }
+
 .menu button {
     cursor: pointer;
-    width: 50px; /* 버튼 너비 */
-    height: 50px; /* 버튼 높이 */
+    width: 50px;
+    /* 버튼 너비 */
+    height: 50px;
+    /* 버튼 높이 */
     background-color: transparent;
     border: none;
     padding: 5px;
-    margin-left: 10px; /* 버튼 간의 간격 */
+    margin-left: 10px;
+    /* 버튼 간의 간격 */
 }
+
 header .menu button img {
     width: 100%;
     height: 100%;
@@ -250,39 +284,47 @@ header .menu button img {
 }
 
 /*프로필 + 채팅목록*/
-.left{
+.left {
     position: absolute;
     top: 145px;
     left: 0;
     width: 245px;
-    height: calc(100vh - 200px); 
+    height: calc(100vh - 200px);
     margin: 10px 10px 10px 15px;
     padding: 15px;
     display: inline-flex;
-    flex-direction: column; /* 현재 시간과 참가자 수를 세로로 배치 */
+    flex-direction: column;
+    /* 현재 시간과 참가자 수를 세로로 배치 */
     align-items: center;
     border-radius: 10px;
     border: 1px solid;
     border-color: #d9d9d9;
-}    
-.left .myProfile{
+}
+
+.left .myProfile {
     position: relative;
     padding: 10px;
-    margin:10px;
+    margin: 10px;
     width: 80%;
     height: 100px;
     border-radius: 10px;
-    background-color: #f1f8ff; /* 배경색 */
+    background-color: #f1f8ff;
+    /* 배경색 */
 }
-.myProfile #top{
+
+.myProfile #top {
     cursor: pointer;
-    overflow: hidden; /* 넘치는 텍스트 숨기기 */
-    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
-    display:inline-flex;
-    flex-direction: row; /*가로 배치 */
+    overflow: hidden;
+    /* 넘치는 텍스트 숨기기 */
+    white-space: nowrap;
+    /* 텍스트를 한 줄로 유지 */
+    display: inline-flex;
+    flex-direction: row;
+    /*가로 배치 */
     width: 240px;
     gap: 10px;
 }
+
 .myProfile #pic {
     width: 55px;
     height: 55px;
@@ -294,23 +336,28 @@ header .menu button img {
     border-color: #c8c8c8;
     overflow: hidden;
 }
-.myProfile #pic img{
+
+.myProfile #pic img {
     width: 100%;
     height: auto;
     top: 0;
     left: 0;
 }
-.myProfile #top #info{
+
+.myProfile #top #info {
     display: inline-flex;
-    flex-direction: column; /*세로 배치 */
-    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    flex-direction: column;
+    /*세로 배치 */
+    white-space: nowrap;
+    /* 텍스트를 한 줄로 유지 */
     position: relative;
     height: 100%;
     margin: 3px 3px 3px 3px;
     vertical-align: middle;
     gap: 8px;
 }
-.myProfile #info div{
+
+.myProfile #info div {
     position: relative;
     border-radius: 5px;
     background-color: #f1f1f1;
@@ -318,25 +365,32 @@ header .menu button img {
     width: fit-content;
     font-weight: 500;
     text-align: left;
-    padding : 1px 5px 1px 5px;
+    padding: 1px 5px 1px 5px;
 }
-.myProfile #bottom{
+
+.myProfile #bottom {
     position: relative;
     display: flex;
-    flex-direction: row; /*가로 배치 */
-    overflow: hidden; /* 넘치는 텍스트 숨기기 */
-    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    flex-direction: row;
+    /*가로 배치 */
+    overflow: hidden;
+    /* 넘치는 텍스트 숨기기 */
+    white-space: nowrap;
+    /* 텍스트를 한 줄로 유지 */
     height: 30px;
     text-align: center;
-    margin:10px 10px 0 10px;
+    margin: 10px 10px 0 10px;
     font-size: 16px;
     align-items: center;
     gap: 10px;
 }
-.myProfile #bottom div{
+
+.myProfile #bottom div {
     cursor: pointer;
-    overflow: hidden; /* 넘치는 텍스트 숨기기 */
-    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    overflow: hidden;
+    /* 넘치는 텍스트 숨기기 */
+    white-space: nowrap;
+    /* 텍스트를 한 줄로 유지 */
     display: inline-block;
     width: 120px;
     border-radius: 5px;
@@ -344,22 +398,25 @@ header .menu button img {
     color: #252525;
     font-weight: 700;
     text-align: right;
-    padding : 1px 10px 1px 10px;    
+    padding: 1px 10px 1px 10px;
 }
-.left #rooms{
+
+.left #rooms {
     position: relative;
     padding: 10px;
-    margin:10px;
+    margin: 10px;
     height: 68%;
     width: 90%;
     border-radius: 10px;
-    overflow: auto; /* 내용이 넘칠 경우 스크롤 가능 */
+    overflow: auto;
+    /* 내용이 넘칠 경우 스크롤 가능 */
 }
-.left .room{
+
+.left .room {
     position: relative;
     cursor: pointer;
     display: flex;
-    margin-bottom:15px;
+    margin-bottom: 15px;
     padding: 10px;
     width: 180px;
     height: 100px;
@@ -367,16 +424,21 @@ header .menu button img {
     border: 1px solid;
     border-color: #d9d9d9;
 }
-.room #top{
+
+.room #top {
     position: absolute;
-    overflow: hidden; /* 넘치는 텍스트 숨기기 */
-    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    overflow: hidden;
+    /* 넘치는 텍스트 숨기기 */
+    white-space: nowrap;
+    /* 텍스트를 한 줄로 유지 */
     display: inline-flex;
-    flex-direction: row; /*가로 배치 */
+    flex-direction: row;
+    /*가로 배치 */
     width: 150px;
     gap: 10px;
 }
-.room #pic{
+
+.room #pic {
     position: relative;
     width: 55px;
     height: 55px;
@@ -385,24 +447,30 @@ header .menu button img {
     border-radius: 137.28px / 132.5px;
     overflow: hidden;
 }
-.room #pic img{
+
+.room #pic img {
     height: auto;
     width: 100%;
     top: 0;
     left: 0px;
 }
-.room #top #info{
+
+.room #top #info {
     position: relative;
-    overflow: hidden; /* 넘치는 텍스트 숨기기 */
-    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    overflow: hidden;
+    /* 넘치는 텍스트 숨기기 */
+    white-space: nowrap;
+    /* 텍스트를 한 줄로 유지 */
     display: inline-flex;
-    flex-direction: column; /*세로 배치 */
+    flex-direction: column;
+    /*세로 배치 */
     height: 100%;
     margin: 3px 3px 3px 3px;
     vertical-align: middle;
     gap: 8px;
 }
-.room #info div{
+
+.room #info div {
     position: relative;
     border-radius: 5px;
     background-color: #f1f1f1;
@@ -410,63 +478,76 @@ header .menu button img {
     font-weight: 500;
     width: fit-content;
     text-align: left;
-    padding : 1px 5px 1px 5px;
+    padding: 1px 5px 1px 5px;
 }
-.room #bottom{
+
+.room #bottom {
     position: relative;
-    overflow: hidden; /* 넘치는 텍스트 숨기기 */
-    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    overflow: hidden;
+    /* 넘치는 텍스트 숨기기 */
+    white-space: nowrap;
+    /* 텍스트를 한 줄로 유지 */
     align-items: center;
-    justify-content: center; /* 가로 가운데 정렬 */
+    justify-content: center;
+    /* 가로 가운데 정렬 */
     border-radius: 5px;
     background-color: #d9d9d9;
     color: #252525;
     width: 190px;
-    margin:70px 0 0 0 ;
+    margin: 70px 0 0 0;
     padding: 2px 5px 2px 5px;
     text-align: center;
     font-size: 16px;
 }
-.left button{
+
+.left button {
     cursor: pointer;
     position: fixed;
     display: flex;
-    justify-content: center; /* 가로 가운데 정렬 */
-    align-items: center;     /* 세로 가운데 정렬 */
+    justify-content: center;
+    /* 가로 가운데 정렬 */
+    align-items: center;
+    /* 세로 가운데 정렬 */
     bottom: 35px;
     border-radius: 30px;
     border: none;
-    transition: box-shadow 0.3s ease; /* 효과 전환을 부드럽게 */
+    transition: box-shadow 0.3s ease;
+    /* 효과 전환을 부드럽게 */
     width: fit-content;
     padding: 10px;
     font-size: 15px;
     font-weight: 500;
     gap: 5px;
 }
+
 .left button:hover {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
 }
-.left button img{
+
+.left button img {
     width: 25px;
     height: auto;
 }
 
-.right{
+.right {
     position: absolute;
     top: 145px;
     left: 305px;
     margin: 10px;
     height: calc(100vh - 165px);
-    width: calc(100% - 325px); /* 윈도우 너비에 따라 조정 */
-    max-width: 1580px; /* 최대 너비 제한 */
+    width: calc(100% - 325px);
+    /* 윈도우 너비에 따라 조정 */
+    max-width: 1580px;
+    /* 최대 너비 제한 */
     display: block;
     overflow-y: auto;
     /*border: 1px solid;
     border-color: #d9d9d9;*/
 }
+
 /*화면*/
 
-.screen{
+.screen {
     position: relative;
     height: 550px;
     width: 100%;
@@ -479,7 +560,7 @@ header .menu button img {
 
 /*채팅창*/
 
-.bottom{
+.bottom {
     position: relative;
     margin-top: 15px;
     height: 200px;
@@ -491,30 +572,43 @@ header .menu button img {
     vertical-align: middle;
     align-items: center;
 }
-.bottom #chat{
-    display: flex; /* 플렉스박스를 사용 */
-    flex-direction: column-reverse; /* 채팅이 아래에서 위로 쌓이게 */
+
+.bottom #chat {
+    display: flex;
+    /* 플렉스박스를 사용 */
+    flex-direction: column-reverse;
+    /* 채팅이 아래에서 위로 쌓이게 */
     align-self: flex-start;
     margin-top: 10px;
-    height: 115px; /* 원하는 높이 설정 */
-    width: 100%; /* 전체 너비 */
-    overflow-y: auto; /* 메시지가 많으면 스크롤이 가능하게 */
-    /*border: 1px solid #ccc;*/ /* 컨테이너에 테두리 추가 */
-    padding: 10px ;
+    height: 115px;
+    /* 원하는 높이 설정 */
+    width: 100%;
+    /* 전체 너비 */
+    overflow-y: auto;
+    /* 메시지가 많으면 스크롤이 가능하게 */
+    /*border: 1px solid #ccc;*/
+    /* 컨테이너에 테두리 추가 */
+    padding: 10px;
 }
-#chat #msg{
+
+#chat #msg {
     padding: 5px 10px 5px 10px;
-    background-color: #f1f1f1; /* 메시지 배경 */
-    border-radius: 5px; /* 둥근 테두리 */
-    margin: 5px 0; /* 메시지 간 간격 */
+    background-color: #f1f1f1;
+    /* 메시지 배경 */
+    border-radius: 5px;
+    /* 둥근 테두리 */
+    margin: 5px 0;
+    /* 메시지 간 간격 */
 }
-#chat #msg span{
+
+#chat #msg span {
     color: cornflowerblue;
     font-weight: 600;
     margin-right: 10px;
 }
-.bottom #send{
-    position:absolute;
+
+.bottom #send {
+    position: absolute;
     margin-bottom: 0;
     display: inline-flex;
     align-self: flex-end;
@@ -522,7 +616,8 @@ header .menu button img {
     padding: 10px;
     width: 100%;
 }
-.bottom #send button{
+
+.bottom #send button {
     cursor: pointer;
     width: 60px;
     height: 35px;
@@ -532,13 +627,15 @@ header .menu button img {
     background-color: #f1f8ff;
 
 }
-.bottom button img{
+
+.bottom button img {
     align-self: center;
     height: 30px;
 }
-.bottom input{
+
+.bottom input {
     align-self: center;
-    margin: 0 ;
+    margin: 0;
     height: 30px;
     width: 88%;
     font-size: 16px;
@@ -548,6 +645,10 @@ header .menu button img {
     background-color: #d9d9d9;
     border: none;
 
+}
+
+canvas {
+    background-image: url('../img/background.png');
 }
 
 /* #endregion */
@@ -578,4 +679,5 @@ header .menu button img {
 .roomModalContainer.active {
     display: flex;
 }
+
 /* #endregion */

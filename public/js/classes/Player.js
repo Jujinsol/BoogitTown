@@ -25,7 +25,7 @@ class Player {
   draw() {
     // 플레이어 이름을 이미지 위에 그리기
     c.font = '12px sans-serif';
-    c.fillStyle = 'white';
+    c.fillStyle = 'black';
     c.fillText(this.username, this.x - 10, this.y + 30);
 
     // 이미지가 로드된 경우 그리기, 그렇지 않으면 원을 그리기
