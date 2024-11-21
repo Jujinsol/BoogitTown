@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" class="create1">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoogieTown</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f1f8ff; /* Optional: 배경색 설정 */
+            overflow: hidden;
+            min-width: 400px; /* Login 너비와 동일하게 설정 */
+            min-height: 600px; /* Login 높이와 동일하게 설정 */
+            margin: 0;
+            padding: 0px;
+        }
+        form {
+            position:fixed;
+            width: 550px;
+            height: 600px;
+            background-color: #ffffff;
+            border-radius: 70px;
+            border: 5px solid #e0f0ff;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+        #title {
+            width: 200px;
+            display: block;
+            margin: 0 auto;
+            padding-bottom: 10px;
+        }
+        .Input {
+            margin-bottom: 15px;
+        }
+        .Input table {
+            width: 100%;
+            margin-left: 5px;
+            border-collapse: collapse; /* 셀 간의 테두리 겹침 제거 */
+        }
+        .Input td {
+            text-align: left;
+            width: 350px;
+            padding-bottom: 6px;
+        }
+        .Input #label-text {
+            text-align: center; /* 셀 내용 중앙 정렬 */
+        }
+        .Input input{
+            height: 25px;
+            width: 150px;
+        }
+        .Input #msg{
+            vertical-align: top;
+            font-size: 12px;
+            color: 696969;
+        }
+        .Input #email{
+            height: 25px;
+            width: 100px;
+        }
+        .Input select{
+            height: 35px;
+            width: 158px;
+        }
+        /* 전체 버튼 스타일 */
+        #pre,#next {
+            width: 100px;
+            height: 40px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 30px; /* 로그인 버튼 위쪽 간격 */
+            color: #ffffff;
+            background-color: #006AFF;
+            text-align: center;
+            line-height: 100%;
+        }
+        #pre {
+            margin-right: 80px;
+        }
+        #pre:hover, #next:hover{
+            background-color: #012E6D;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <div>
+            <h2 id="title">회원가입</h2>
+            <br>
+            <div class="Input">
+                <table>
+                    <tr>
+                        <td id="label-text">이름 </td>
+                        <td><input id="name" type="text"></td>
+                    </tr>
+                    <tr><td></td><td id="msg"></td></tr>
+                    <tr>
+                        <td id="label-text">닉네임 </td>
+                        <td><input id="nickname" type="text"></td>
+                    </tr>
+                    <tr><td></td><td id="msg">이미 있는 닉네임입니다.</td></tr>
+                    <tr>
+                        <td id="label-text">학번 </td>
+                        <td><input id="number" type="text"></td>
+                    </tr>
+                    <tr><td></td><td id="msg">이미 있는 학번입니다.</td></tr>
+                    <tr>
+                        <td id="label-text">학부 </td>
+                        <td>
+                            <input type="text" list="majors">
+                            <datalist id="majors">
+                                <option value="IT공과대학"></option>
+                                <option value="인문예술대학"></option>
+                                <option value="인문예술대학"></option>
+                                <option value="사회과학대학"></option>
+                                <option value="디자인대학"></option>
+                                <option value="미래플러스대학"></option>
+                                <option value="상상력교양대학"></option>
+                                <option value="글로벌인재학부"></option>
+                            </datalist>
+                        </td>
+                    </tr>
+                    <tr><td></td><td></td></tr>
+                    <tr>
+                        <td id="label-text">이메일 </td>
+                        <td><input id="email" type="text"> @ hansung.ac.kr</td>
+                    </tr>
+                    <tr><td></td><td id="msg">이미 있는 이메일입니다.</td></tr>
+                    <tr>
+                        <td id="label-text">비밀번호 </td>
+                        <td><input id="pwd" type="password"></td>
+                    </tr>
+                    <tr><td></td><td></td></tr>
+                    <tr>
+                        <td id="label-text">비밀번호 확인 </td>
+                        <td><input id="pwd2" type="password"></td>
+                    </tr>
+                </table>
+            </div>
+            <button type="submit" id="pre">이전</button>
+            <button id="next">다음</button>
+        </div>
+    </form>
+</body>
+</html>
