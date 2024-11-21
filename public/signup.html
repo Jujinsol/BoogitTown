@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="#">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/loginStyle.css">
     <title>Signup and Login</title>
     <style>
         html,
@@ -84,7 +84,7 @@
                     </tr>
                 </table>
             </div>
-            <button onclick="goToIndex()" id="preButton" type="button">이전</button>
+            <button onclick="goToLogin()" id="preButton" type="button">이전</button>
             <button onclick="goToCharacter()" id="nextButton" type="button">다음</button>
         </div>
 
@@ -135,11 +135,11 @@
         if (response.ok) {
             document.getElementById('signupForm').reset();
             alert('Signup successful! You can now log in.');
-            window.location.href = 'index.html';
+            window.location.href = 'main.html';
         }
     });
 
-    function goToIndex() {
+    function goToLogin() {
         window.location.href = 'index.html';
     }
 
