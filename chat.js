@@ -24,7 +24,7 @@ router.post('/create-chatroom', (req, res) => {
 
 // 채팅방 로드
 router.get('/load-chatroom', (req, res) => {
-    const query = `SELECT * FROM chat_rooms`;
+    const query = `SELECT * FROM chatrooms`;
 
     db.query(query, (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
