@@ -97,30 +97,11 @@
                 <canvas style="width:100%"></canvas>
             </div>
             <div class="bottom">
-                <div id="chat">
-                    <div id="msg">
-                        <span id="nickName">상상부기</span>
-                        1
-                    </div>
-                    <div id="msg">
-                        <span id="nickName">상상부기</span>
-                        2
-                    </div>
-                    <div id="msg">
-                        <span id="nickName">상상부기</span>
-                        3
-                    </div>
-                    <div id="msg">
-                        <span id="nickName">상상부기</span>
-                        4
-                    </div>
+                <div id="chatMessages">
                 </div>
                 <div id="send">
-                    <button id="emoji">
-                        <img src="img/heart.png" />
-                    </button>
-                    <input type="text">
-                    <button id="sendButton">
+                    <input type="text" id="messageInput" placeholder="메시지를 입력하세요" style="width: 80%;" >
+                    <button id="sendButton" onclick="sendMessage()">
                         <img src="img/send.png" />
                     </button>
                 </div>

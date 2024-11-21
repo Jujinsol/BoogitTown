@@ -60,10 +60,12 @@ router.post('/send-message', (req, res) => {
     if (!chatroom_id || !user_id || !content) {
         return res.status(400).json({ message: '필수 정보를 모두 입력해주세요.' });
     }
+    const query = `INSERT INTO messages (chatroom_id, user_id, content, timestamp) 
+                    SELECT id, ?, ?, ?
+                    FROM chatrooms
+                    WHERE name = ?;`;
 
-    const query = `INSERT INTO messages (chatroom_id, user_id, content, timestamp) VALUES (?, ?, ?, ?)`;
-
-    db.query(query, [chatroom_id, user_id, content, timestamp], (err, result) => {
+    db.query(query, [user_id, content, timestamp, chatroom_id], (err, result) => {
         if (err) {
             console.error('메시지 전송 오류:', err);
             return res.status(500).json({ message: '메시지 전송 실패' });
@@ -77,10 +79,11 @@ router.post('/send-message', (req, res) => {
 router.get('/get-messages/:chatroomId', (req, res) => {
     const { chatroomId } = req.params;
     const query = `
-        SELECT user_id, content, timestamp 
-        FROM messages 
-        WHERE chatroom_id = ? 
-        ORDER BY id`;
+        SELECT m.user_id, m.content, m.timestamp
+        FROM messages m
+        JOIN chatrooms c ON m.chatroom_id = c.id
+        WHERE c.name = ?
+        ORDER BY m.id desc;`;
 
     db.query(query, [chatroomId], (err, results) => {
         if (err) {

@@ -280,6 +280,8 @@ document.querySelector('#loginForm').addEventListener('submit', async (event) =>
   document.getElementById('myFace').src = `./img/${data.img}.png`;
   document.getElementById('myNickname').innerHTML = data.nickname;
   document.getElementById('myMajor').innerHTML = data.major;
+
+  loadMessages();
 })
 
 document.getElementById('createRoom').addEventListener('submit', async (e) => {
@@ -318,7 +320,7 @@ document.getElementById('makeRoomButton').addEventListener('click', function () 
   roomModalContainer.classList.add('active'); // 모달을 보이도록 active 클래스 추가
 });
 
-let currentRoomId = null;
+let currentRoomId = '메인채팅';
 
 // 채팅방 로드 함수
 async function loadChatRooms() {
