@@ -1,258 +1,62 @@
-* {
-    box-sizing: border-box;
-}
-
-input::placeholder {
-    color: #94a3b8;
-}
-
-canvas {
-    width: 1024px;
-    height: 576px;
-    background-image: url('/img/webb-dark.png');
-}
-
-h1 {
-    margin: 0;
-}
-
-button {
-    border: 0;
-    cursor: pointer;
-    font-size: 16px;
-    background-color: white;
-}
-
-button:hover {
-    border-radius: 7px;
-    text-decoration: underline;
-    text-decoration-style: wavy;
-}
-
-:root {
-    --text-color: black;
-    --background-color: #253343;
-    --accent-color: #d49466;
-}
-
-a {
-    text-decoration: none;
-    color: var(--text-color);
-}
-
-li {
-    list-style-type: none;
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    padding: 8px 12px;
-    border-radius: 10px;
-    border: 1px solid black;
-}
-
-.navbar__logo i {
-    color: wheat;
-}
-
-.navbar__menu {
-    display: flex;
-    list-style: none;
-    padding-left: 0;
-}
-
-.navbar__menu li {
-    padding: 8px 36px;
-    color: white;
-    color: black;
-}
-
-.navbar__icons {
-    list-style: none;
-    color: white;
-    display: flex;
-    padding-left: 0;
-}
-
-.navbar__icons li {
-    padding: 8px 12px;
-}
-
-.navbar__toogleBtn {
-    display: none;
-    position: absolute;
-    right: 32px;
-    font-size: 24px;
-    color: white;
-}
-
-.moveModalContainer,
-.roomModalContainer {
-    display: none;
-    /* 기본적으로 모달을 숨김 */
-    position: fixed;
-    top: 0;
-    left: 0;
+/* #region about login */
+html,body {
+    height: 100%;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    /* 반투명 배경 */
-    justify-content: center;
-    align-items: center;
-}
-
-.modal {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.moveModalContainer.active,
-.roomModalContainer.active {
     display: flex;
-    /* active 클래스가 추가되면 모달 보임 */
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f8ff;
+    min-width: 400px;
+    /* Login 너비와 동일하게 설정 */
+    min-height: 600px;
+    /* Login 높이와 동일하게 설정 */
+    margin: 0;
+    padding: 0;
 }
-
-.scriptInput {
-    height: 100px;
-    width: auto;
-    word-break: break-all;
-    overflow-wrap: break-word;
-    resize: none;
-}
-
-.Chat {
-    margin-top: 10;
-}
-
-.chatBox,
-#myChatBox {
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 10;
-}
-
-.Bar {
-    width: 12%;
-    height: 100%;
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 3px;
-    text-align: center;
-}
-
-.Bar li {
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 3px;
-    margin: 3px;
-    box-shadow: 5px 2px 2px rgb(182, 182, 182);
-}
-
-#signupForm {
-    position: fixed;
-    width: 550px;
+#loginForm form {
+    width: 400px;
     height: 600px;
     background-color: #ffffff;
     border-radius: 70px;
     border: 5px solid #e0f0ff;
-    display: flex;
+    display: flex; /* 플렉스 박스 활성화 */
+    flex-direction: column; /* 내용물을 세로로 정렬 */
     text-align: center;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
 }
 
-#signupTitle {
+#loginForm #logo {
     width: 200px;
     display: block;
     margin: 0 auto;
-    padding-bottom: 10px;
+    padding-bottom: 60px;
 }
 
-.signupInput table {
+#loginForm table {
     width: 100%;
-    margin-left: 5px;
+    margin: 45 auto;
+    text-align: center;
+}
+
+#loginForm .Input {
+    margin-bottom: 15px;
+}
+
+#loginForm .Input table {
+    width: 100%;
     border-collapse: collapse;
+    /* 셀 간의 테두리 겹침 제거 */
 }
 
-.signupInput td {
-    text-align: left;
-    width: 350px;
-    padding-bottom: 6px;
-}
-
-.signupInput #label-text {
+#loginForm .Input td {
+    padding: 8px;
+    /* 셀 안쪽 여백 */
     text-align: center;
     /* 셀 내용 중앙 정렬 */
 }
 
-.signupInput input {
-    height: 25px;
-    width: 150px;
-}
-
-#preButton,
-#nextButton {
-    width: 100px;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1em;
-    cursor: pointer;
-    margin-top: 10px;
-    ;
-}
-
-#preButton {
-    margin-top: 30px;
-    /* 로그인 버튼 위쪽 간격 */
-    margin-right: 80px;
-    background-color: #006AFF;
-    color: #ffffff;
-}
-
-#preButton:hover {
-    background-color: #012E6D;
-    color: #ffffff;
-}
-
-#nextButton {
-    background-color: #006AFF;
-    color: #ffffff;
-}
-
-#nextButton:hover {
-    background-color: #012E6D;
-    color: #ffffff;
-}
-
-/* HIDE RADIO */
-[type=radio] {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-/* IMAGE STYLES */
-[type=radio]+img {
-    width: 70px;
-    height: 70px;
-    cursor: pointer;
-}
-
-/* CHECKED STYLES */
-[type=radio]:checked+img {
-    outline: 2px solid #006AFF;
-}
-
-
-/* 전체 버튼 스타일 */
 #loginbutton,
 #createAccount {
     width: 50%;
@@ -287,10 +91,491 @@ li {
     /* 밑줄과 텍스트 사이 간격 */
 }
 
-/* 로고 이미지 가운데 정렬 */
-#logo {
-    width: 200px;
-    display: block;
-    margin: 0 auto;
-    padding-bottom: 60px;
+/* #endregion */
+
+/* #region about main content */
+
+header{
+    position: fixed;
+    top: 0px;
+    left: 0;
+    z-index: 10; /* 다른 요소들보다 위에 표시 */
+    display: inline-flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content:flex-start; 
+    padding:10px;
+    width: 100%;
+    height: max-content;
+    box-sizing: border-box;
 }
+header #logo{
+    height: 120px; /* 로고 크기 조정 */
+    width: 210px;
+    margin: 10px 40px 0px 40px;
+}
+header .top2 {
+    display: inline-flex;
+    flex-direction:row;
+    height: 120px;
+    width: 360px;
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: #d9d9d9;
+    margin-left: 15px;
+    margin-right: 20px;
+}
+.top2 #date{
+    padding: 10px;
+    margin-left: 5px;
+    font-weight: bold;
+    vertical-align: middle;
+    text-align: center;
+    color: #333;
+}
+.top2 #line1{
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 24px;
+}
+.top2 #line2 {
+    width: 135px;
+    font-size: 50px;
+    margin-top: 5px;
+}
+header #status {
+    display: flex;
+    flex-direction: column; /* 현재 시간과 참가자 수를 세로로 배치 */
+    padding: 10px;
+    margin-right: 10px;
+}
+#status #time{
+    display: inline-flex;
+    flex-direction: row;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+    gap: 5px;
+}
+#time #hhmm{
+    font-size: 56px;
+}
+#time #ampm{
+    bottom: 0;
+}
+#participants{
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    display: inline-flex;
+    flex-direction:row;
+    vertical-align: middle;
+    padding: 3px;
+    font-weight:500;
+    gap: 8px;
+}
+#participants #people{
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #d9d9d9;
+    color: #252525;
+    font-weight: 700;
+    text-align: right;
+    padding : 0 5px 0 30px;
+}
+header .notice {
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    height: 120px;
+    width: 54%;
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: #d9d9d9;
+    margin-right: 20px;
+}
+/* 브라우저 창의 너비가 600px 이하일 때 숨김 */
+@media screen and (max-width: 880px) {
+    .notice {
+        display: none;
+    }
+}
+.notice #title{
+    overflow: hidden;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 15px;
+    height: 25px;
+    vertical-align: center;
+}
+.notice #notice{
+    margin: 10px;
+    padding: 0 5px 0 5px ;
+    display: flex;
+    overflow: hidden;
+    width: auto;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    align-items: center;
+    color: #595959;
+    font-size: 16px;
+    text-align: center;
+}
+header .menu {
+    display: inline-flex;
+    align-items: center;
+    height: 120px;
+    width: 150px;
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: #d9d9d9;
+}
+.menu table{
+    height: 100%;
+    padding: 5px;
+}
+.menu button {
+    cursor: pointer;
+    width: 50px; /* 버튼 너비 */
+    height: 50px; /* 버튼 높이 */
+    background-color: transparent;
+    border: none;
+    padding: 5px;
+    margin-left: 10px; /* 버튼 간의 간격 */
+}
+header .menu button img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/*프로필 + 채팅목록*/
+.left{
+    position: absolute;
+    top: 145px;
+    left: 0;
+    width: 245px;
+    height: calc(100vh - 200px); 
+    margin: 10px 10px 10px 15px;
+    padding: 15px;
+    display: inline-flex;
+    flex-direction: column; /* 현재 시간과 참가자 수를 세로로 배치 */
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: #d9d9d9;
+}    
+.left .myProfile{
+    position: relative;
+    padding: 10px;
+    margin:10px;
+    width: 80%;
+    height: 100px;
+    border-radius: 10px;
+    background-color: #f1f8ff; /* 배경색 */
+}
+.myProfile #top{
+    cursor: pointer;
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    display:inline-flex;
+    flex-direction: row; /*가로 배치 */
+    width: 240px;
+    gap: 10px;
+}
+.myProfile #pic {
+    width: 55px;
+    height: 55px;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    border-radius: 137.28px / 132.5px;
+    border: 1px solid;
+    border-color: #c8c8c8;
+    overflow: hidden;
+}
+.myProfile #pic img{
+    width: 100%;
+    height: auto;
+    top: 0;
+    left: 0;
+}
+.myProfile #top #info{
+    display: inline-flex;
+    flex-direction: column; /*세로 배치 */
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    position: relative;
+    height: 100%;
+    margin: 3px 3px 3px 3px;
+    vertical-align: middle;
+    gap: 8px;
+}
+.myProfile #info div{
+    position: relative;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    color: #252525;
+    width: fit-content;
+    font-weight: 500;
+    text-align: left;
+    padding : 1px 5px 1px 5px;
+}
+.myProfile #bottom{
+    position: relative;
+    display: flex;
+    flex-direction: row; /*가로 배치 */
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    height: 30px;
+    text-align: center;
+    margin:10px 10px 0 10px;
+    font-size: 16px;
+    align-items: center;
+    gap: 10px;
+}
+.myProfile #bottom div{
+    cursor: pointer;
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    display: inline-block;
+    width: 120px;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    color: #252525;
+    font-weight: 700;
+    text-align: right;
+    padding : 1px 10px 1px 10px;    
+}
+.left #rooms{
+    position: relative;
+    padding: 10px;
+    margin:10px;
+    height: 68%;
+    width: 90%;
+    border-radius: 10px;
+    overflow: auto; /* 내용이 넘칠 경우 스크롤 가능 */
+}
+.left .room{
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    margin-bottom:15px;
+    padding: 10px;
+    width: 180px;
+    height: 100px;
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: #d9d9d9;
+}
+.room #top{
+    position: absolute;
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    display: inline-flex;
+    flex-direction: row; /*가로 배치 */
+    width: 150px;
+    gap: 10px;
+}
+.room #pic{
+    position: relative;
+    width: 55px;
+    height: 55px;
+    top: 0;
+    left: 5px;
+    border-radius: 137.28px / 132.5px;
+    overflow: hidden;
+}
+.room #pic img{
+    height: auto;
+    width: 100%;
+    top: 0;
+    left: 0px;
+}
+.room #top #info{
+    position: relative;
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    display: inline-flex;
+    flex-direction: column; /*세로 배치 */
+    height: 100%;
+    margin: 3px 3px 3px 3px;
+    vertical-align: middle;
+    gap: 8px;
+}
+.room #info div{
+    position: relative;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    color: #252525;
+    font-weight: 500;
+    width: fit-content;
+    text-align: left;
+    padding : 1px 5px 1px 5px;
+}
+.room #bottom{
+    position: relative;
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    align-items: center;
+    justify-content: center; /* 가로 가운데 정렬 */
+    border-radius: 5px;
+    background-color: #d9d9d9;
+    color: #252525;
+    width: 190px;
+    margin:70px 0 0 0 ;
+    padding: 2px 5px 2px 5px;
+    text-align: center;
+    font-size: 16px;
+}
+.left button{
+    cursor: pointer;
+    position: fixed;
+    display: flex;
+    justify-content: center; /* 가로 가운데 정렬 */
+    align-items: center;     /* 세로 가운데 정렬 */
+    bottom: 35px;
+    border-radius: 30px;
+    border: none;
+    transition: box-shadow 0.3s ease; /* 효과 전환을 부드럽게 */
+    width: fit-content;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    gap: 5px;
+}
+.left button:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+.left button img{
+    width: 25px;
+    height: auto;
+}
+
+.right{
+    position: absolute;
+    top: 145px;
+    left: 305px;
+    margin: 10px;
+    height: calc(100vh - 165px);
+    width: calc(100% - 325px); /* 윈도우 너비에 따라 조정 */
+    max-width: 1580px; /* 최대 너비 제한 */
+    display: block;
+    overflow-y: auto;
+    /*border: 1px solid;
+    border-color: #d9d9d9;*/
+}
+/*화면*/
+
+.screen{
+    position: relative;
+    height: 550px;
+    width: 100%;
+    display: inline-flex;
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: #d9d9d9;
+}
+
+
+/*채팅창*/
+
+.bottom{
+    position: relative;
+    margin-top: 15px;
+    height: 200px;
+    width: 100%;
+    display: inline-flex;
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: #d9d9d9;
+    vertical-align: middle;
+    align-items: center;
+}
+.bottom #chat{
+    display: flex; /* 플렉스박스를 사용 */
+    flex-direction: column-reverse; /* 채팅이 아래에서 위로 쌓이게 */
+    align-self: flex-start;
+    margin-top: 10px;
+    height: 115px; /* 원하는 높이 설정 */
+    width: 100%; /* 전체 너비 */
+    overflow-y: auto; /* 메시지가 많으면 스크롤이 가능하게 */
+    /*border: 1px solid #ccc;*/ /* 컨테이너에 테두리 추가 */
+    padding: 10px ;
+}
+#chat #msg{
+    padding: 5px 10px 5px 10px;
+    background-color: #f1f1f1; /* 메시지 배경 */
+    border-radius: 5px; /* 둥근 테두리 */
+    margin: 5px 0; /* 메시지 간 간격 */
+}
+#chat #msg span{
+    color: cornflowerblue;
+    font-weight: 600;
+    margin-right: 10px;
+}
+.bottom #send{
+    position:absolute;
+    margin-bottom: 0;
+    display: inline-flex;
+    align-self: flex-end;
+    gap: 10px;
+    padding: 10px;
+    width: 100%;
+}
+.bottom #send button{
+    cursor: pointer;
+    width: 60px;
+    height: 35px;
+    border-radius: 15px;
+    border: 1px solid;
+    border-color: #d9d9d9;
+    background-color: #f1f8ff;
+
+}
+.bottom button img{
+    align-self: center;
+    height: 30px;
+}
+.bottom input{
+    align-self: center;
+    margin: 0 ;
+    height: 30px;
+    width: 88%;
+    font-size: 16px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 15px;
+    background-color: #d9d9d9;
+    border: none;
+
+}
+
+/* #endregion */
+
+/* #region about modal */
+.roomModalContainer {
+    display: none;
+    /* 기본적으로 모달을 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 반투명 배경 */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.roomModalContainer.active {
+    display: flex;
+}
+/* #endregion */
