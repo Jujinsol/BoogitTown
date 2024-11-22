@@ -1,8 +1,12 @@
 /*
 목차
-L8. body
-L18.header
-L162.section
+L10. body
+L27.header
+L183.왼쪽
+L397.화면
+L408.채팅창
+L535.방만들기
+L610.알림
 */
 html, body {
     margin: 0;
@@ -390,8 +394,8 @@ header .menu {
     /*border: 1px solid;
     border-color: #d9d9d9;*/
 }
-/*화면*/
 
+/*화면*/
 #screen{
     position: relative;
     height: 550px;
@@ -401,7 +405,6 @@ header .menu {
     border: 1px solid;
     border-color: #d9d9d9;
 }
-
 
 /*채팅창*/
 #bottom{
@@ -602,4 +605,66 @@ header .menu {
 }
 #createRoom #roomMake:hover{
     background-color: #012E6D;
+}
+
+/*알림창*/
+/* 알림창 숨김 기본값 */
+#notification {
+    display: none;
+    position:absolute;
+    align-items: center;
+    justify-content: center;
+    top: 170px;
+    right: 40px;
+    width: 500px;
+    max-height: 400px;
+    z-index: 1000;
+}
+/* 알림창 활성화 시 표시 */
+#notification.active {
+    display: flex; /* 알림창 보이기 */
+}
+#notification form{
+    position: relative;
+    width:100%;
+    height: 100%;
+    display: inline-flex;
+    place-items: center; /* 가로 및 세로 중앙 정렬 */
+    flex-direction: column; /* 세로 배치 */
+    gap:20px;
+}
+#mynotification{
+    cursor: pointer;
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    display:inline-flex;
+    flex-direction: row; /*가로 배치 */
+    align-items: center;     /* 세로 가운데 정렬 */
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 70px;
+}
+#notification-pic {
+    width: 30px;
+    height: 30px;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    border-radius: 137.28px / 132.5px;
+    border: 1px solid;
+    border-color: #c8c8c8;
+    overflow: hidden;
+    margin: 15px;
+}
+#notification-pic img{
+    width: 100%;
+    height: auto;
+    top: 0;
+    left: 0;
+}
+#notification-info{
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    color: #ffffff;
+}
+#notification-info #who{
+    color: aqua;
 }
