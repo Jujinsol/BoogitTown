@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" class="myInfo">
+<html lang="ko" class="myInfo">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>myInfo</title>
-    <link rel="stylesheet" href="style.css" />
     <style>
         html, body{
             width: 100%;
             height: 100%;
+            position: absolute;
             display: flex;
             align-items: center;
             justify-content: center;
             background-color: #f1f8ff; /* Optional: 배경색 설정 */
             overflow: hidden;
-            min-width: 400px; /* Login 너비와 동일하게 설정 */
-            min-height: 600px; /* Login 높이와 동일하게 설정 */
             margin: 0;
             padding: 0;
         }
@@ -111,7 +109,6 @@
             width: auto;
             top: 120px;
             left: 160px;
-            background-color: #d9d9d9;
             border-radius: 5px;
             color: #595959;
             font-size: 16px;
@@ -122,7 +119,6 @@
             width: auto;
             top: 160px;
             left: 160px;
-            background-color: #d9d9d9;
             border-radius: 5px;
             color: #595959;
             font-size: 16px;
@@ -137,17 +133,25 @@
             background-size: 100% 100%;
         }
         .group div{
-            display: flex;
             position: absolute;
             width: auto;
-            background-color: #d9d9d9;
-            border-radius: 5px;
+            height:15px;
+            border-radius: 15px;
             align-items: center;
             color: #595959;
             font-size: 16px;
             text-align: center;
             margin-bottom: 5px;
-            padding: 5px;
+            padding: 5px 10px 5px 10px;
+        }
+        .group input{
+            height:15px;
+            font-size: 16px;
+            padding: 5px 10px 5px 10px;
+            border-radius: 15px;
+            border:none;
+            background-color: #f1f1f1;
+            color: #595959;
         }
         #myMajor{
             top: 40px;
@@ -178,7 +182,6 @@
             width: 18px;
             height: 18px;
         }
-
         #backButton {
             cursor: pointer;
             border-radius: 137.28px / 132.5px;
@@ -196,17 +199,10 @@
             width: 70%;
         }
         #label-2 {
-            font-family: var(--m3-headline-medium-font-family);
-            font-weight: var(--m3-headline-medium-font-weight);
-            color: var(--color-text-default-secondary);
-            font-size: var(--m3-headline-medium-font-size);
-            letter-spacing: var(--m3-headline-medium-letter-spacing);
-            line-height: var(--m3-headline-medium-line-height);
             position: relative;
             width: fit-content;
             text-align: center;
             white-space: nowrap;
-            font-style: var(--m3-headline-medium-font-style);
         }
         .box1 {
             position: absolute;
@@ -277,7 +273,6 @@
             position: absolute;
             width: auto;
             top: 284px;
-            background-color: #d9d9d9;
             border-radius: 5px;
             align-items: center;
             padding: 5px;
@@ -290,7 +285,6 @@
             position: absolute;
             width: auto;
             top: 333px;
-            background-color: #d9d9d9;
             border-radius: 5px;
             align-items: center;
             padding: 5px;
@@ -322,7 +316,7 @@
             justify-content: center;
             align-items: center;
             position: absolute;
-            bottom: 50px;
+            bottom: 45px;
             left: 280px;
         }
         #logout button{
@@ -343,6 +337,40 @@
         }
 
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const editButton = document.getElementById('editButton');
+            editButton.addEventListener('click', () => {
+                const groupDivs = document.querySelectorAll('.group div');
+                if (editButton.textContent === '✏️ 수정') {
+                    editButton.textContent = '✔️ 완료';
+                    groupDivs.forEach((div) => {
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.value = div.textContent;  // 기존 텍스트 값을 input의 value로 설정
+                        div.textContent = '';  // div의 텍스트를 비운 후
+                        div.appendChild(input);  // input을 div에 추가
+                    });
+                } else {
+                    editButton.textContent = '✏️ 수정';
+                    groupDivs.forEach((div) => {
+                        const input = div.querySelector('input');
+                        if (input) {
+                            div.textContent = input.value;
+                        }
+                    });
+                }
+            });
+
+            const backButton = document.getElementById('backButton');  // 돌아가기 버튼 선택
+            backButton.addEventListener('click', () => {
+                window.location.href = 'frame.html';  // frame.html로 돌아가기
+            });
+        });
+    </script>    
+    <!-- myinfo.html에 추가할 버튼 -->
+
+
 </head>
 <body>
     <div class="screen">
@@ -390,7 +418,7 @@
                 <div id="myMajor">학부</div>
                 <div id="myPwd">비밀번호</div>
             </div>
-            <button id="editButton"><img id="icon" src="img/edit.png" />수정</button>
+            <button id="editButton" type="submit">✏️ 수정</button>
             <div id="logout">
                 <button>로그아웃</button>
         </div>
