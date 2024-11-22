@@ -1,29 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 현재  가져오기
     const now = new Date();
-    // 12시간 기준 시와 분
     let hours = now.getHours();
     const minutes = now.getMinutes().toString().padStart(2, '0'); // 분 (2자리로 표시)
     const period = hours >= 12 ? 'PM' : 'AM'; // AM/PM 결정
-    // 12시간제로 변환
     hours = hours % 12 || 12; // 0시를 12시로 변경
-    // 첫 줄: 연도와 요일
     const year = now.getFullYear();
     const weekday = now.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
-    // 두 번째 줄: 월과 일
     const month = now.getMonth() + 1;
     const day = now.getDate();
-    // id="date" 객체에 내용 추가
     document.getElementById('date').innerHTML = `
         <div id="line1">${year} ${weekday}</div>
         <div id="line2">${month} ${day}</div>
     `;
-    // id="time" 요소에 시간 표시
     document.getElementById('time').innerHTML = `
         <div id="hhmm">${hours}:${minutes}</div> 
         <div id="ampm">${period}</div>
     `;
-      // 현재 탭에서 myinfo.html 이동
+    // 내프로필 클릭
     const myProfile = document.querySelector('.myProfile');
     myProfile.addEventListener('click', () => {
         window.location.href = 'myinfo.html';
@@ -49,10 +42,22 @@ document.addEventListener('DOMContentLoaded', () => {
         closecreateRoom();
         updateLayout(); // 스타일 및 요소 추가
     });
-    // 다른 div 클릭 시 동일한 효과
+    // 채팅방 클릭
     const room = document.getElementById('room');
     room.addEventListener('click', (event) => {
         updateLayout(); // 동일한 스타일 및 요소 추가
+    });
+    // 알림창 띄우기
+    const notificationButton = document.getElementById('notificationButton');
+    const notification = document.getElementById('notification');
+    notificationButton.addEventListener('click', () => {
+        notification.classList.add('active'); // 알림창에 'active' 클래스 추가
+    });
+    document.addEventListener('click', (event) => {
+        if (notification.contains(event.target) || event.target === notificationButton) {
+            return;
+        }
+        notification.classList.remove('active'); // 'active' 클래스 제거
     });
 });
 // enter키로 전송가능
