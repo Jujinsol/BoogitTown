@@ -82,7 +82,8 @@ app.post('/login', (req, res) => {
             return res.status(401).json({ message: '비밀번호가 일치하지 않습니다.' });
         }
 
-        res.status(200).json({ message: '로그인 성공', userId: user.id, nickname: user.nickname, img: user.img, major: user.major });
+        res.status(200).json({ message: '로그인 성공', userId: user.id, nickname: user.nickname, 
+            img: user.img, major: user.major, studentnum: user.studentnum, name:user.name });
         console.log(results);
     });
 });
@@ -116,7 +117,7 @@ app.delete('/delete', (req, res) => {
 app.put('/update', async (req, res) => {
     const { id, password, nickname, studentnum, major } = req.body;
 
-    if (!id || (!password && !nickname && !studentnum && !major)) {
+    if (!id || (!password && !nickname && !major)) {
         return res.status(400).json({ message: '수정할 데이터를 입력해야 합니다.' });
     }
 

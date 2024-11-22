@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="#">
-    <link rel="stylesheet" href="css/loginStyle.css">
     <title>Signup and Login</title>
     <style>
         html,
@@ -23,7 +22,102 @@
             min-height: 600px;
             /* Login 높이와 동일하게 설정 */
             margin: 0;
-            padding: 0px;
+            padding: 0;
+        }
+
+        #signupTitle {
+            width: 200px;
+            display: block;
+            margin: 0 auto;
+            padding-bottom: 10px;
+        }
+
+        .Input {
+            margin-bottom: 15px;
+        }
+
+        .Input table {
+            width: 100%;
+            margin-left: 5px;
+            border-collapse: collapse;
+            /* 셀 간의 테두리 겹침 제거 */
+        }
+
+        .Input td {
+            text-align: left;
+            width: 350px;
+            padding-bottom: 6px;
+        }
+
+        .Input #label-text {
+            text-align: center;
+            /* 셀 내용 중앙 정렬 */
+        }
+
+        .Input input {
+            height: 25px;
+            width: 150px;
+        }
+
+        .Input #msg {
+            vertical-align: top;
+            font-size: 12px;
+            color: 696969;
+        }
+
+        .Input #signupEmail {
+            height: 25px;
+            width: 100px;
+        }
+
+        .Input select {
+            height: 35px;
+            width: 158px;
+        }
+
+        /* 전체 버튼 스타일 */
+        button {
+            width: 100px;
+            height: 40px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 30px;
+            /* 로그인 버튼 위쪽 간격 */
+            color: #ffffff;
+            background-color: #006AFF;
+            text-align: center;
+            line-height: 100%;
+        }
+
+        #preButton {
+            margin-right: 80px;
+        }
+
+        button:hover {
+            background-color: #012E6D;
+        }
+
+        /* HIDE RADIO */
+        [type=radio] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* IMAGE STYLES */
+        [type=radio]+img {
+            width: 70px;
+            height: 70px;
+            cursor: pointer;
+        }
+
+        /* CHECKED STYLES */
+        [type=radio]:checked+img {
+            outline: 2px solid #006AFF;
         }
     </style>
 </head>
@@ -104,7 +198,7 @@
                 </label>
             </div>
             <div>
-                <button onclick="goToSignup()" type="button">이전</button>
+                <button id="preButton" onclick="goToSignup()" type="button">이전</button>
                 <button type="submit">회원가입</button>
             </div>
         </div>
@@ -135,7 +229,7 @@
         if (response.ok) {
             document.getElementById('signupForm').reset();
             alert('Signup successful! You can now log in.');
-            window.location.href = 'main.html';
+            window.location.href = 'index.html';
         }
     });
 

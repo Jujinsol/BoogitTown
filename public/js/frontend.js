@@ -247,6 +247,8 @@ document.addEventListener('DOMContentLoaded', () => {
 loadChatRooms(); // 채팅방 목록 로드
 });
 
+let userData;
+
 document.querySelector('#loginForm').addEventListener('submit', async (event) => {
   event.preventDefault()
   const email = document.getElementById('loginEmail').value;
@@ -259,6 +261,7 @@ document.querySelector('#loginForm').addEventListener('submit', async (event) =>
   });
 
   const data = await response.json();
+  userData = data;
 
   document.querySelector('#loginForm').style.display = 'none'
 
@@ -272,7 +275,7 @@ document.querySelector('#loginForm').addEventListener('submit', async (event) =>
       major: data.major
     })
   } else {
-    window.location.href = '/main.html';
+    window.location.href = '/index.html';
   }
   document.getElementById('mainContent').style.display = 'block';
   document.body.style.backgroundColor = "white";
@@ -300,6 +303,7 @@ document.getElementById('createRoom').addEventListener('submit', async (e) => {
 
   if (response.ok) {
     alert('Create Room successful!');
+    loadChatRooms();
   } else {
     const errorText = await response.text(); // JSON이 아니면 텍스트로 읽기
     console.error('Error:', errorText);
@@ -341,6 +345,8 @@ async function loadChatRooms() {
 
     // 채팅방 목록 생성
     chatRooms.forEach((room) => {
+      if (room.name =='메인채팅')
+        return;
       // 새로운 room div 생성
       const roomDiv = document.createElement('div');
       roomDiv.className = 'room';
@@ -352,7 +358,7 @@ async function loadChatRooms() {
       const picDiv = document.createElement('div');
       picDiv.id = 'pic';
       const picImg = document.createElement('img');
-      picImg.src = 'img/person.png'; // 임시 이미지, 실제로는 방 생성자 이미지로 바꿀 수 있음
+      picImg.src = 'img/group.png'; // 임시 이미지, 실제로는 방 생성자 이미지로 바꿀 수 있음
       picDiv.appendChild(picImg);
 
       const infoDiv = document.createElement('div');
@@ -498,6 +504,73 @@ function exitRoom() {
   document.getElementById('mainContent').style.display = 'block';
 }
 
+document.getElementById('logoutButton').addEventListener('click', async () => {
+  try {
+      // 로그아웃 API 호출
+      const response = await fetch('/logout', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      });
+
+      if (response.ok) {
+          const data = await response.json();
+          console.log(data.message); // "로그아웃 성공" 출력
+
+          // 세션 초기화 (예: 로컬 스토리지 비우기)
+          localStorage.clear();
+
+          // 로그인 페이지로 리다이렉트
+          window.location.href = '/index.html';
+      } else {
+          console.error('로그아웃 실패');
+      }
+  } catch (error) {
+      console.error('에러 발생:', error);
+  }
+});
+
+document.getElementById('editButton').addEventListener('click', async () => {
+  // 사용자 입력 데이터 수집
+  const nickname = document.getElementById('newNickname').value.trim();
+  const major = document.getElementById('newMajor').value;
+  const password = document.getElementById('newPass').value.trim();
+  const userId = userData.userId;
+
+  // 요청 데이터 생성
+  const payload = {
+      id: userId, // 사용자 ID
+      nickname: nickname || userData.nickname,
+      major: major || userData.major,
+      password: password || userData.password
+  };
+
+  try {
+      // 서버에 PUT 요청 보내기
+      const response = await fetch('/update', {
+          method: 'PUT',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+      });
+
+      // 응답 처리
+      if (response.ok) {
+          const result = await response.json();
+          alert(result.message); // "정보 수정 성공" 메시지 표시
+          // 필요 시 페이지 리로드 또는 다른 작업 수행
+      } else {
+          const error = await response.json();
+          alert(`수정 실패: ${error.message}`);
+      }
+  } catch (err) {
+      console.error('API 요청 오류:', err);
+      alert('서버와의 통신 중 문제가 발생했습니다.');
+  }
+});
+
 function CloseModal() {
   var roomModalContainer = document.querySelector('.roomModalContainer');
   roomModalContainer.classList.remove('active'); // active 클래스를 제거하여 모달 닫기
@@ -508,5 +581,21 @@ function goToSignup() {
 }
 
 function goToMypage() {
-  window.location.href = 'mypage.html';
+  document.getElementById('mainContent').style.display = 'none';
+  document.getElementById('mypage').style.display = 'block';
+
+
+  document.getElementById('mypageFace').src = `./img/${userData.img}.png`;
+  document.getElementById('mypageNickname').innerHTML = userData.nickname;
+  document.getElementById('mypageMajor').innerHTML = userData.major;
+
+  document.getElementById('myName').innerHTML += userData.name;
+  document.getElementById('myNum').innerHTML += userData.studentnum;
+
+  console.log("오호 ", userData);
+}
+
+function goToMain() {
+  document.getElementById('mainContent').style.display = 'block';
+  document.getElementById('mypage').style.display = 'none';
 }

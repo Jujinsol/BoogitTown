@@ -100,7 +100,7 @@
                 <div id="chatMessages">
                 </div>
                 <div id="send">
-                    <input type="text" id="messageInput" placeholder="메시지를 입력하세요" style="width: 80%;" >
+                    <input type="text" id="messageInput" placeholder="메시지를 입력하세요" style="width: 80%;">
                     <button id="sendButton" onclick="sendMessage()">
                         <img src="img/send.png" />
                     </button>
@@ -109,6 +109,66 @@
         </section>
     </div>
 
+    <div id="mypage" style="display: none;">
+        <div class="mypageScreen">
+            <div class="mypageLeft">
+                <div id="mypageLeft1">
+                    <button onclick="goToMain()" id="mypageBackButton"><img id="arrowBack" src="img/arrow_back.png" /></button>
+                </div>
+                <div id="mypageLeft2">
+                    <div class="box1">
+                        <div id="mypageProfile">
+                            <img id="mypageFace" src="img/default/01.png" />
+                        </div>
+                        <div id="mypageNickname">닉네임</div>
+                        <div id="mypageMajor">학부</div>
+                        <div class="buttonList">
+                            <div class="menuButton1">
+                                <div id="menuLayer">
+                                    <div id="content">내 정보 수정</div>
+                                    <div id="arrow">▶</div>
+                                </div>
+                                <div id="border2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mypageRight" >
+                <div class="view">
+                    <div id="caption">
+                        <img src="img/account.png" />
+                        <div id="label">기본 정보</div>
+                    </div>
+                    <div id="indicator"></div>
+                </div>
+                <div id="myProfile">
+                    <img id="myProfileImg" src="img/default/02.png" />
+                </div>
+                <div id="myName">이름  :  </div>
+                <div id="myNum">학번  :  </div>
+                <div class="group">
+                    <div id="myNickName">닉네임  :  <input type="text" id="newNickname" name="textInput"/></div>
+                    <div id="myMajor">학부  :  
+                        <select id="newMajor">
+                            <option value="IT공과대학">IT공과대학</option>
+                            <option value="인문예술대학">인문예술대학</option>
+                            <option value="인문예술대학">인문예술대학</option>
+                            <option value="사회과학대학">사회과학대학</option>
+                            <option value="디자인대학">디자인대학</option>
+                            <option value="미래플러스대학">미래플러스대학</option>
+                            <option value="상상력교양대학">상상력교양대학</option>
+                            <option value="글로벌인재학부">글로벌인재학부</option>
+                        </select></div>
+                    <div id="myPwd">비밀번호  :  <input type="password" id="newPass" name="textInput"/></div>
+                </div>
+                <button id="editButton"><img id="icon" src="img/edit.png" />수정</button>
+                <div id="logout">
+                    <button id="logoutButton">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 <script>
