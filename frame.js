@@ -59,6 +59,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         notification.classList.remove('active'); // 'active' 클래스 제거
     });
+    //이모지버튼
+    const emojiButton = document.getElementById('emojiButton');
+    const emojiList = document.getElementById('emojiList');
+    emojiButton.addEventListener('click', () => {
+        emojiList.classList.toggle('active');  // active 클래스를 토글하여 목록 보이기/숨기기
+    });
+
+    const emojis = document.querySelectorAll('.emoji');
+    emojis.forEach(emoji => {
+        emoji.addEventListener('click', (event) => {
+            const input = document.getElementById('sendInput');  // 텍스트 입력창
+            input.value += emoji.textContent;  // 선택된 이모지를 입력창에 추가
+            event.stopPropagation();  // 이모지 클릭 시, 외부 클릭 이벤트 전파를 막아 emojiList가 숨겨지지 않도록 함
+        });
+    });
+
+    document.addEventListener('click', (event) => {
+        // emojiList와 emojiButton 외부를 클릭한 경우에만 숨김
+        if (!emojiButton.contains(event.target) && !emojiList.contains(event.target)) {
+            emojiList.classList.remove('active');
+        }
+    });
+
 });
 // enter키로 전송가능
 document.getElementById('sendInput').addEventListener('keydown', (event) => {
