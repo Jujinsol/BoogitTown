@@ -283,7 +283,7 @@ header .menu {
     border-radius: 10px;
     overflow: auto; /* 내용이 넘칠 경우 스크롤 가능 */
 }
-.left .room{
+.left #room{
     position: relative;
     cursor: pointer;
     display: flex;
@@ -295,7 +295,7 @@ header .menu {
     border: 1px solid;
     border-color: #d9d9d9;
 }
-.room #top{
+#room #top{
     position: absolute;
     overflow: hidden; /* 넘치는 텍스트 숨기기 */
     white-space: nowrap; /* 텍스트를 한 줄로 유지 */
@@ -304,7 +304,7 @@ header .menu {
     width: 150px;
     gap: 10px;
 }
-.room #pic{
+#room #pic{
     position: relative;
     width: 55px;
     height: 55px;
@@ -313,13 +313,13 @@ header .menu {
     border-radius: 137.28px / 132.5px;
     overflow: hidden;
 }
-.room #pic img{
+#room #pic img{
     height: auto;
     width: 100%;
     top: 0;
     left: 0px;
 }
-.room #top #info{
+#room #top #info{
     position: relative;
     overflow: hidden; /* 넘치는 텍스트 숨기기 */
     white-space: nowrap; /* 텍스트를 한 줄로 유지 */
@@ -330,7 +330,7 @@ header .menu {
     vertical-align: middle;
     gap: 8px;
 }
-.room #info div{
+#room #info div{
     position: relative;
     border-radius: 5px;
     background-color: #f1f1f1;
@@ -340,7 +340,7 @@ header .menu {
     text-align: left;
     padding : 1px 5px 1px 5px;
 }
-.room #roomText{
+#room #roomText{
     position: relative;
     overflow: hidden; /* 넘치는 텍스트 숨기기 */
     white-space: nowrap; /* 텍스트를 한 줄로 유지 */
