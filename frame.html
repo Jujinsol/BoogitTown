@@ -36,7 +36,7 @@
                     <td><button>👥</button></td>
                 </tr>
                 <tr>
-                    <td><button>🔔</button></td>
+                    <td><button id="notificationButton">🔔</button></td>
                     <td><button>⚙️</button></td>
                 </tr>
             </table>
@@ -44,7 +44,7 @@
         </div>
     </header>
     <section class="left">
-        <div class="myProfile">
+        <div class="myProfile" >
             <div id="top"> 
                 <div id="pic">
                     <img />
@@ -60,7 +60,7 @@
             </div>
         </div>
         <div id="rooms">
-            <div class="room">
+            <div id="room">
                 <div id="top"> 
                     <div id="pic">
                         <img src="img/person.png"/>
@@ -72,7 +72,7 @@
                 </div>
                 <div id="roomText">채팅내용</div>
             </div>
-            <div class="room">
+            <div id="room">
                 <div id="top"> 
                     <div id="pic">
                         <img src="img/group.png"/>
@@ -84,7 +84,7 @@
                 </div>
                 <div id="roomText">채팅내용</div>
             </div>
-            <div class="room">
+            <div id="room">
                 <div id="top"> 
                     <div id="pic">
                         <img src="img/group.png"/>
@@ -96,7 +96,7 @@
                 </div>
                 <div id="roomText">채팅내용</div>
             </div>
-            <div class="room">
+            <div id="room">
                 <div id="top"> 
                     <div id="pic">
                         <img src="img/group.png"/>
@@ -108,7 +108,7 @@
                 </div>
                 <div id="roomText">채팅내용</div>
             </div>
-            <div class="room">
+            <div id="room">
                 <div id="top"> 
                     <div id="pic">
                         <img src="img/group.png"/>
@@ -247,6 +247,10 @@
                 <button id="roomMake">만들기</button>
             </form>
         </section>
+    </div>
+
+    <!--알림창-->
+    <div class="overlay" id="notification">
     </div>
 
 </body>
