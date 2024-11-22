@@ -23,7 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
         <div id="hhmm">${hours}:${minutes}</div> 
         <div id="ampm">${period}</div>
     `;
-
+      // 현재 탭에서 myinfo.html 이동
+    const myProfile = document.querySelector('.myProfile');
+    myProfile.addEventListener('click', () => {
+        window.location.href = 'myinfo.html';
+    });
     // 방 만들기 암호 4자리
     const input = document.getElementById('number-input');
     input.addEventListener('input', (event) => {
@@ -38,75 +42,92 @@ document.addEventListener('DOMContentLoaded', () => {
         event.target.value = value;
     });
 
-    // 채팅화면 변환
+    // 방 만들기 버튼 클릭
     const roomMake = document.getElementById('roomMake');
-
-    roomMake.addEventListener('click',(event) => {
+    roomMake.addEventListener('click', (event) => {
         event.preventDefault(); // 버튼 기본 동작 방지
         closecreateRoom();
-        const screen = document.getElementById('screen');
-        const bottom = document.getElementById('bottom');
-        const chat = document.getElementById('chat'); 
-        const sendInput = document.getElementById('sendInput');
-
-        //채팅방상단
-        const roomTop= document.createElement('div');
-        roomTop.id='roomTop';
-        bottom.appendChild(roomTop);
-        // 새로만든 뒤로가기
-        const newBackButton = document.createElement('button');
-        newBackButton.textContent = '←';
-        newBackButton.id='newBackButton';
-        roomTop.appendChild(newBackButton);
-        // 방제목 표시
-        const roomTitle = document.createElement('div');
-        roomTitle.textContent = '방제';
-        roomTitle.id='roomTitle';
-        roomTop.appendChild(roomTitle);
-
-
-        screen.style.width = '60%';
-        screen.style.height = '765px';
-
-        bottom.style.width = '39%';
-        bottom.style.height = '765px';
-        bottom.style.margin= '0px';
-        bottom.style.marginLeft='15px';
-        bottom.style.gap = '5px';
-        bottom.style.paddingLeft='0px';
-
-        chat.style.flexDirection='column';
-        chat.style.height='80%';
-        chat.style.margin= '70px 10px 5px 0' ;
-
-        sendInput.style.width = '70%';
-
-        //뒤로가기 = 초기화
-        newBackButton.addEventListener('click', () => {
-            // 스타일 초기화
-            screen.style.width = '';
-            screen.style.height = '';
-    
-            bottom.style.width = '';
-            bottom.style.height = '';
-            bottom.style.margin= '';
-            bottom.style.marginLeft='';
-            bottom.style.gap = '';
-            bottom.style.paddingLeft='';
-    
-            chat.style.flexDirection='';
-            chat.style.height='';
-            chat.style.margin= '' ;
-    
-            sendInput.style.width = '';
-    
-            roomTop.removeChild(newBackButton);
-            roomTop.removeChild(roomTitle);
-            bottom.removeChild(roomTop);
-        });
+        updateLayout(); // 스타일 및 요소 추가
+    });
+    // 다른 div 클릭 시 동일한 효과
+    const room = document.getElementById('room');
+    room.addEventListener('click', (event) => {
+        updateLayout(); // 동일한 스타일 및 요소 추가
     });
 });
+// enter키로 전송가능
+document.getElementById('sendInput').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {  // Enter 키가 눌렸을 때
+        event.preventDefault();  // 기본 동작(입력값 전송)을 방지
+        document.getElementById('sendButton').click();  // sendButton 클릭 실행
+    }
+});
+// 채팅방 레이아웃으로 변경
+function updateLayout() {
+    const screen = document.getElementById('screen');
+    const bottom = document.getElementById('bottom');
+    const chat = document.getElementById('chat');
+    const sendInput = document.getElementById('sendInput');
 
+    // 채팅방 상단 생성
+    const roomTop = document.createElement('div');
+    roomTop.id = 'roomTop';
+    bottom.appendChild(roomTop);
+
+    // 새로 만든 뒤로가기 버튼
+    const newBackButton = document.createElement('button');
+    newBackButton.textContent = '←';
+    newBackButton.id = 'newBackButton';
+    roomTop.appendChild(newBackButton);
+
+    // 방제목 표시
+    const roomTitle = document.createElement('div');
+    roomTitle.textContent = '방제';
+    roomTitle.id = 'roomTitle';
+    roomTop.appendChild(roomTitle);
+
+    // 스타일 변경
+    screen.style.width = '60%';
+    screen.style.height = '765px';
+    bottom.style.width = '39%';
+    bottom.style.height = '765px';
+    bottom.style.margin = '0px';
+    bottom.style.marginLeft = '15px';
+    bottom.style.gap = '5px';
+    bottom.style.paddingLeft = '0px';
+    chat.style.flexDirection = 'column';
+    chat.style.height = '80%';
+    chat.style.margin = '70px 10px 5px 0';
+    sendInput.style.width = '70%';
+
+    // 뒤로가기 버튼 클릭 시 초기화
+    newBackButton.addEventListener('click', () => {
+        resetLayout();
+        roomTop.removeChild(newBackButton);
+        roomTop.removeChild(roomTitle);
+        bottom.removeChild(roomTop);
+    });
+}
+// 채팅방 뒤로가기 버튼 기능
+function resetLayout() {
+    const screen = document.getElementById('screen');
+    const bottom = document.getElementById('bottom');
+    const chat = document.getElementById('chat');
+    const sendInput = document.getElementById('sendInput');
+
+    screen.style.width = '';
+    screen.style.height = '';
+    bottom.style.width = '';
+    bottom.style.height = '';
+    bottom.style.margin = '';
+    bottom.style.marginLeft = '';
+    bottom.style.gap = '';
+    bottom.style.paddingLeft = '';
+    chat.style.flexDirection = '';
+    chat.style.height = '';
+    chat.style.margin = '';
+    sendInput.style.width = '';
+}
 // 방 만들기 창 표시 함수
 function showcreateRoom(event) {
     event.preventDefault(); // 폼 제출 방지
