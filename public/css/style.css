@@ -529,7 +529,7 @@ header .menu button img {
     height: auto;
 }
 
-.right {
+#right {
     position: absolute;
     top: 145px;
     left: 305px;
@@ -541,8 +541,6 @@ header .menu button img {
     /* 최대 너비 제한 */
     display: block;
     overflow-y: auto;
-    /*border: 1px solid;
-    border-color: #d9d9d9;*/
 }
 
 /*화면*/
@@ -570,7 +568,6 @@ header .menu button img {
     border: 1px solid;
     border-color: #d9d9d9;
     vertical-align: middle;
-    align-items: center;
 }
 
 #bottom #chatMessages {
@@ -629,6 +626,43 @@ header .menu button img {
     background-color: #d9d9d9;
     border: none;
 
+}
+
+#bottom #roomTop {
+    position: absolute;
+    display: inline-flex;
+    justify-content: center;
+    vertical-align: middle;
+    top :0;
+    width: 100%;
+    height: fit-content;
+    margin-top: 20px;
+}
+#bottom #newBackButton {
+    cursor: pointer;
+    position: absolute;
+    justify-content: center;
+    width : 40px;
+    height: 40px;
+    border-radius:30px;
+    border:none;
+    background-color: transparent;
+    font-weight:700;
+    font-size: 18px;
+    left:10px;
+    top : 0px;
+    margin-bottom: 5px;
+}
+#bottom #newBackButton:hover{
+    background-color: #d9d9d9;
+}
+#bottom #roomTitle{
+    position: absolute;
+    align-self: center;
+    margin-top: 40px;
+    font-size: 24px;
+    font-weight: 700;
+    height: auto;
 }
 
 canvas {

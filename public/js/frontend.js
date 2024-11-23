@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div id="ampm">${period}</div>
 `;
 
-loadChatRooms(); // 채팅방 목록 로드
+  loadChatRooms(); // 채팅방 목록 로드
 });
 
 let userData;
@@ -345,7 +345,7 @@ async function loadChatRooms() {
 
     // 채팅방 목록 생성
     chatRooms.forEach((room) => {
-      if (room.name =='메인채팅')
+      if (room.name == '메인채팅')
         return;
       // 새로운 room div 생성
       const roomDiv = document.createElement('div');
@@ -402,19 +402,19 @@ async function loadChatRooms() {
 // 채팅방 입장
 function enterChatRoom() {
   fetch(`/chat/join-chatroom/${currentRoomId}`)
-      .then(response => {
-          if (!response.ok) {
-              throw new Error('채팅방 입장에 실패했습니다.');
-          }
-          return response.json();
-      })
-      .then(data => {
-          console.log('채팅방 입장 성공:', data.chatroom);
-      })
-      .catch(error => {
-          console.error('오류:', error.message);
-          alert(error.message); // 사용자에게 오류 알림
-      });
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('채팅방 입장에 실패했습니다.');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('채팅방 입장 성공:', data.chatroom);
+    })
+    .catch(error => {
+      console.error('오류:', error.message);
+      alert(error.message); // 사용자에게 오류 알림
+    });
   loadMessages(); // 메시지 로드
 }
 
@@ -517,28 +517,28 @@ function exitRoom() {
 
 document.getElementById('logoutButton').addEventListener('click', async () => {
   try {
-      // 로그아웃 API 호출
-      const response = await fetch('/logout', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          }
-      });
-
-      if (response.ok) {
-          const data = await response.json();
-          console.log(data.message); // "로그아웃 성공" 출력
-
-          // 세션 초기화 (예: 로컬 스토리지 비우기)
-          localStorage.clear();
-
-          // 로그인 페이지로 리다이렉트
-          window.location.href = '/index.html';
-      } else {
-          console.error('로그아웃 실패');
+    // 로그아웃 API 호출
+    const response = await fetch('/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
       }
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.message); // "로그아웃 성공" 출력
+
+      // 세션 초기화 (예: 로컬 스토리지 비우기)
+      localStorage.clear();
+
+      // 로그인 페이지로 리다이렉트
+      window.location.href = '/index.html';
+    } else {
+      console.error('로그아웃 실패');
+    }
   } catch (error) {
-      console.error('에러 발생:', error);
+    console.error('에러 발생:', error);
   }
 });
 
@@ -551,34 +551,34 @@ document.getElementById('editButton').addEventListener('click', async () => {
 
   // 요청 데이터 생성
   const payload = {
-      id: userId, // 사용자 ID
-      nickname: nickname || userData.nickname,
-      major: major || userData.major,
-      password: password || userData.password
+    id: userId, // 사용자 ID
+    nickname: nickname || userData.nickname,
+    major: major || userData.major,
+    password: password || userData.password
   };
 
   try {
-      // 서버에 PUT 요청 보내기
-      const response = await fetch('/update', {
-          method: 'PUT',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payload)
-      });
+    // 서버에 PUT 요청 보내기
+    const response = await fetch('/update', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
 
-      // 응답 처리
-      if (response.ok) {
-          const result = await response.json();
-          alert(result.message); // "정보 수정 성공" 메시지 표시
-          // 필요 시 페이지 리로드 또는 다른 작업 수행
-      } else {
-          const error = await response.json();
-          alert(`수정 실패: ${error.message}`);
-      }
+    // 응답 처리
+    if (response.ok) {
+      const result = await response.json();
+      alert(result.message); // "정보 수정 성공" 메시지 표시
+      // 필요 시 페이지 리로드 또는 다른 작업 수행
+    } else {
+      const error = await response.json();
+      alert(`수정 실패: ${error.message}`);
+    }
   } catch (err) {
-      console.error('API 요청 오류:', err);
-      alert('서버와의 통신 중 문제가 발생했습니다.');
+    console.error('API 요청 오류:', err);
+    alert('서버와의 통신 중 문제가 발생했습니다.');
   }
 });
 
@@ -614,11 +614,14 @@ function goToMain() {
 
 // 채팅방 레이아웃으로 변경
 function updateLayout() {
+  const right = document.getElementById('right');
+  right.style.display = 'flex';
+
   const screen = document.getElementById('screen');
   const bottom = document.getElementById('bottom');
   const chat = document.getElementById('chat');
   const sendInput = document.getElementById('sendInput');
-
+  
   // 채팅방 상단 생성
   const roomTop = document.createElement('div');
   roomTop.id = 'roomTop';
@@ -652,10 +655,10 @@ function updateLayout() {
 
   // 뒤로가기 버튼 클릭 시 초기화
   newBackButton.addEventListener('click', () => {
-      resetLayout();
-      roomTop.removeChild(newBackButton);
-      roomTop.removeChild(roomTitle);
-      bottom.removeChild(roomTop);
+    resetLayout();
+    roomTop.removeChild(newBackButton);
+    roomTop.removeChild(roomTitle);
+    bottom.removeChild(roomTop);
   });
 }
 // 채팅방 뒤로가기 버튼 기능
