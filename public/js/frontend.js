@@ -376,7 +376,7 @@ async function loadChatRooms() {
 
       // bottom 부분 (채팅 내용)
       const bottomDiv = document.createElement('div');
-      bottomDiv.id = 'bottom';
+      bottomDiv.id = 'chatPrev';
       bottomDiv.textContent = '채팅내용'; // 실제 채팅 내용이 있으면 그에 맞게 수정
 
       // 채팅방 버튼 클릭 시 해당 방 입장

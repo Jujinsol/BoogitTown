@@ -481,7 +481,7 @@ header .menu button img {
     padding: 1px 5px 1px 5px;
 }
 
-.room #bottom {
+.room #chatPrev {
     position: relative;
     overflow: hidden;
     /* 넘치는 텍스트 숨기기 */
@@ -560,7 +560,7 @@ header .menu button img {
 
 /*채팅창*/
 
-.bottom {
+#bottom {
     position: relative;
     margin-top: 15px;
     height: 200px;
@@ -573,7 +573,7 @@ header .menu button img {
     align-items: center;
 }
 
-.bottom #chatMessages {
+#bottom #chatMessages {
     display: flex;
     /* 플렉스박스를 사용 */
     flex-direction: column-reverse;
@@ -591,7 +591,7 @@ header .menu button img {
     padding: 10px;
 }
 
-.bottom #send {
+#bottom #send {
     position: absolute;
     margin-bottom: 0;
     display: inline-flex;
@@ -601,7 +601,7 @@ header .menu button img {
     width: 100%;
 }
 
-.bottom #send button {
+#bottom #send button {
     cursor: pointer;
     width: 60px;
     height: 35px;
@@ -612,12 +612,12 @@ header .menu button img {
 
 }
 
-.bottom button img {
+#bottom button img {
     align-self: center;
     height: 30px;
 }
 
-.bottom input {
+#bottom input {
     align-self: center;
     margin: 0;
     height: 30px;
