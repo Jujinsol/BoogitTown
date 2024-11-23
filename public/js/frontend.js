@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div id="hhmm">${hours}:${minutes}</div> 
 <div id="ampm">${period}</div>
 `;
-
+  console.log(document.activeElement);
   loadChatRooms(); // 채팅방 목록 로드
 });
 
@@ -381,6 +381,8 @@ async function loadChatRooms() {
 
       // 채팅방 버튼 클릭 시 해당 방 입장
       roomDiv.onclick = () => {
+        if (currentRoomId != '메인채팅')
+          exitRoom();
         currentRoomId = room.name; // 선택된 채팅방 ID 저장
         enterChatRoom(); // 채팅방 입장
         updateLayout();
@@ -509,10 +511,8 @@ socket.on('newMessage', ({ user_id, content, timestamp }) => {
 
 // 채팅방 나가기
 function exitRoom() {
-  currentRoomId = null;
-  document.getElementById('chatRoom').style.display = 'none';
-  document.getElementById('getRoom').style.display = 'block';
-  document.getElementById('mainContent').style.display = 'block';
+  currentRoomId = '메인채팅';
+  resetLayout();
 }
 
 document.getElementById('logoutButton').addEventListener('click', async () => {
@@ -658,9 +658,7 @@ function updateLayout() {
     roomTop.removeChild(newBackButton);
     roomTop.removeChild(roomTitle);
     bottom.removeChild(roomTop);
-    resetLayout();
-    currentRoomId = '메인채팅';
-    loadMessages();
+    exitRoom();
   });
 }
 
@@ -672,7 +670,9 @@ function resetLayout() {
   const bottom = document.getElementById('bottom');
   const chat = document.getElementById('chatMessages');
   const sendInput = document.getElementById('messageInput');
-
+  const roomTitle = document.getElementById('roomTitle');
+  roomTitle.remove();
+  
   chatMessages.style.height = '';
   chatMessages.style.marginTop = '';
 
