@@ -35,8 +35,8 @@ router.get('/load-chatroom', (req, res) => {
 // 채팅방 참여
 router.get('/join-chatroom/:chatroomId', (req, res) => {
     const { chatroomId } = req.params;
-
-    const query = `SELECT * FROM chatrooms WHERE id = ?`;
+    
+    const query = `SELECT * FROM chatrooms WHERE id = (select id from chatrooms where name = ?);`;
 
     db.query(query, [chatroomId], (err, results) => {
         if (err) {

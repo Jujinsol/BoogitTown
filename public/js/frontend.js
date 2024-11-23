@@ -383,6 +383,7 @@ async function loadChatRooms() {
       roomDiv.onclick = () => {
         currentRoomId = room.name; // 선택된 채팅방 ID 저장
         enterChatRoom(); // 채팅방 입장
+        updateLayout();
       };
 
       // 방 정보 추가
@@ -400,10 +401,20 @@ async function loadChatRooms() {
 
 // 채팅방 입장
 function enterChatRoom() {
-  document.getElementById('roomTitle').textContent = `채팅방: ${currentRoomId}`;
-  document.getElementById('getRoom').style.display = 'none';
-  document.getElementById('mainContent').style.display = 'none';
-  document.getElementById('chatRoom').style.display = 'block';
+  fetch(`/chat/join-chatroom/${currentRoomId}`)
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('채팅방 입장에 실패했습니다.');
+          }
+          return response.json();
+      })
+      .then(data => {
+          console.log('채팅방 입장 성공:', data.chatroom);
+      })
+      .catch(error => {
+          console.error('오류:', error.message);
+          alert(error.message); // 사용자에게 오류 알림
+      });
   loadMessages(); // 메시지 로드
 }
 
@@ -598,4 +609,72 @@ function goToMypage() {
 function goToMain() {
   document.getElementById('mainContent').style.display = 'block';
   document.getElementById('mypage').style.display = 'none';
+}
+
+
+// 채팅방 레이아웃으로 변경
+function updateLayout() {
+  const screen = document.getElementById('screen');
+  const bottom = document.getElementById('bottom');
+  const chat = document.getElementById('chat');
+  const sendInput = document.getElementById('sendInput');
+
+  // 채팅방 상단 생성
+  const roomTop = document.createElement('div');
+  roomTop.id = 'roomTop';
+  bottom.appendChild(roomTop);
+
+  // 새로 만든 뒤로가기 버튼
+  const newBackButton = document.createElement('button');
+  newBackButton.textContent = '←';
+  newBackButton.id = 'newBackButton';
+  roomTop.appendChild(newBackButton);
+
+  // 방제목 표시
+  const roomTitle = document.createElement('div');
+  roomTitle.textContent = '방제';
+  roomTitle.id = 'roomTitle';
+  roomTop.appendChild(roomTitle);
+
+  // 스타일 변경
+  screen.style.width = '60%';
+  screen.style.height = '765px';
+  bottom.style.width = '39%';
+  bottom.style.height = '765px';
+  bottom.style.margin = '0px';
+  bottom.style.marginLeft = '15px';
+  bottom.style.gap = '5px';
+  bottom.style.paddingLeft = '0px';
+  chat.style.flexDirection = 'column';
+  chat.style.height = '80%';
+  chat.style.margin = '70px 10px 5px 0';
+  sendInput.style.width = '70%';
+
+  // 뒤로가기 버튼 클릭 시 초기화
+  newBackButton.addEventListener('click', () => {
+      resetLayout();
+      roomTop.removeChild(newBackButton);
+      roomTop.removeChild(roomTitle);
+      bottom.removeChild(roomTop);
+  });
+}
+// 채팅방 뒤로가기 버튼 기능
+function resetLayout() {
+  const screen = document.getElementById('screen');
+  const bottom = document.getElementById('bottom');
+  const chat = document.getElementById('chat');
+  const sendInput = document.getElementById('sendInput');
+
+  screen.style.width = '';
+  screen.style.height = '';
+  bottom.style.width = '';
+  bottom.style.height = '';
+  bottom.style.margin = '';
+  bottom.style.marginLeft = '';
+  bottom.style.gap = '';
+  bottom.style.paddingLeft = '';
+  chat.style.flexDirection = '';
+  chat.style.height = '';
+  chat.style.margin = '';
+  sendInput.style.width = '';
 }

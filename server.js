@@ -84,7 +84,6 @@ app.post('/login', (req, res) => {
 
         res.status(200).json({ message: '로그인 성공', userId: user.id, nickname: user.nickname, 
             img: user.img, major: user.major, studentnum: user.studentnum, name:user.name });
-        console.log(results);
     });
 });
 
