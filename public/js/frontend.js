@@ -621,6 +621,10 @@ function updateLayout() {
   const bottom = document.getElementById('bottom');
   const chat = document.getElementById('chat');
   const sendInput = document.getElementById('sendInput');
+
+  const chatMessages = document.getElementById('chatMessages');
+  chatMessages.style.height = 'calc(100vh - 310px)';
+  chatMessages.style.marginTop = '55px';
   
   // 채팅방 상단 생성
   const roomTop = document.createElement('div');
@@ -635,15 +639,15 @@ function updateLayout() {
 
   // 방제목 표시
   const roomTitle = document.createElement('div');
-  roomTitle.textContent = '방제';
+  roomTitle.textContent = currentRoomId;
   roomTitle.id = 'roomTitle';
   roomTop.appendChild(roomTitle);
 
   // 스타일 변경
   screen.style.width = '60%';
-  screen.style.height = '765px';
+  screen.style.height = 'calc(100vh - 200px)';
   bottom.style.width = '39%';
-  bottom.style.height = '765px';
+  bottom.style.height = 'calc(100vh - 200px)';
   bottom.style.margin = '0px';
   bottom.style.marginLeft = '15px';
   bottom.style.gap = '5px';
@@ -661,7 +665,7 @@ function updateLayout() {
     bottom.removeChild(roomTop);
   });
 }
-// 채팅방 뒤로가기 버튼 기능
+
 function resetLayout() {
   const screen = document.getElementById('screen');
   const bottom = document.getElementById('bottom');
