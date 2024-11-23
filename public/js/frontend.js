@@ -619,12 +619,8 @@ function updateLayout() {
 
   const screen = document.getElementById('screen');
   const bottom = document.getElementById('bottom');
-  const chat = document.getElementById('chat');
-  const sendInput = document.getElementById('sendInput');
-
-  const chatMessages = document.getElementById('chatMessages');
-  chatMessages.style.height = 'calc(100vh - 310px)';
-  chatMessages.style.marginTop = '55px';
+  const chat = document.getElementById('chatMessages');
+  const sendInput = document.getElementById('messageInput');
   
   // 채팅방 상단 생성
   const roomTop = document.createElement('div');
@@ -652,25 +648,33 @@ function updateLayout() {
   bottom.style.marginLeft = '15px';
   bottom.style.gap = '5px';
   bottom.style.paddingLeft = '0px';
-  chat.style.flexDirection = 'column';
-  chat.style.height = '80%';
+  chat.style.height = 'calc(100vh - 310px)';
   chat.style.margin = '70px 10px 5px 0';
+  chat.style.marginTop = '55px';
   sendInput.style.width = '70%';
 
   // 뒤로가기 버튼 클릭 시 초기화
   newBackButton.addEventListener('click', () => {
-    resetLayout();
     roomTop.removeChild(newBackButton);
     roomTop.removeChild(roomTitle);
     bottom.removeChild(roomTop);
+    resetLayout();
+    currentRoomId = '메인채팅';
+    loadMessages();
   });
 }
 
 function resetLayout() {
+  const right = document.getElementById('right');
+  right.style.display = 'block';
+
   const screen = document.getElementById('screen');
   const bottom = document.getElementById('bottom');
-  const chat = document.getElementById('chat');
-  const sendInput = document.getElementById('sendInput');
+  const chat = document.getElementById('chatMessages');
+  const sendInput = document.getElementById('messageInput');
+
+  chatMessages.style.height = '';
+  chatMessages.style.marginTop = '';
 
   screen.style.width = '';
   screen.style.height = '';
@@ -680,7 +684,6 @@ function resetLayout() {
   bottom.style.marginLeft = '';
   bottom.style.gap = '';
   bottom.style.paddingLeft = '';
-  chat.style.flexDirection = '';
   chat.style.height = '';
   chat.style.margin = '';
   sendInput.style.width = '';
