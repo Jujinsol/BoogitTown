@@ -21,6 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
     myProfile.addEventListener('click', () => {
         window.location.href = 'myinfo.html';
     });
+    // 참가인원 클릭
+    const people = document.getElementById('people');
+    const participants = document.getElementById('participants');
+    people.addEventListener('click', (event) => {
+        participants.classList.add('active');
+    });
     // 방 만들기 암호 4자리
     const input = document.getElementById('number-input');
     input.addEventListener('input', (event) => {
@@ -34,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // 값 반영
         event.target.value = value;
     });
-
     // 방 만들기 버튼 클릭
     const roomMake = document.getElementById('roomMake');
     roomMake.addEventListener('click', (event) => {
@@ -47,25 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
     room.addEventListener('click', (event) => {
         updateLayout(); // 동일한 스타일 및 요소 추가
     });
-    // 알림창 띄우기
-    const notificationButton = document.getElementById('notificationButton');
-    const notification = document.getElementById('notification');
-    notificationButton.addEventListener('click', () => {
-        notification.classList.add('active'); // 알림창에 'active' 클래스 추가
-    });
-    document.addEventListener('click', (event) => {
-        if (notification.contains(event.target) || event.target === notificationButton) {
-            return;
-        }
-        notification.classList.remove('active'); // 'active' 클래스 제거
-    });
     //이모지버튼
     const emojiButton = document.getElementById('emojiButton');
     const emojiList = document.getElementById('emojiList');
     emojiButton.addEventListener('click', () => {
         emojiList.classList.toggle('active');  // active 클래스를 토글하여 목록 보이기/숨기기
     });
-
     const emojis = document.querySelectorAll('.emoji');
     emojis.forEach(emoji => {
         emoji.addEventListener('click', (event) => {
@@ -74,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
             event.stopPropagation();  // 이모지 클릭 시, 외부 클릭 이벤트 전파를 막아 emojiList가 숨겨지지 않도록 함
         });
     });
-
     document.addEventListener('click', (event) => {
         // emojiList와 emojiButton 외부를 클릭한 경우에만 숨김
         if (!emojiButton.contains(event.target) && !emojiList.contains(event.target)) {
@@ -164,4 +155,12 @@ function showcreateRoom(event) {
 // 방 만들기 창 닫기 함수
 function closecreateRoom() {
     document.getElementById("createRoom").classList.remove("active");
+}
+// 전체 참가자 창 표시 함수
+function showparticipants(event){
+    document.getElementById("participants").classList.add("active");
+}
+// 전체 참가자 창 닫기 함수
+function closeparticipants() {
+    document.getElementById("participants").classList.remove("active");
 }
