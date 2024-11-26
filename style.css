@@ -94,7 +94,7 @@ header #status {
 #time #ampm{
     bottom: 0;
 }
-#participants{
+#current{
     white-space: nowrap; /* 텍스트를 한 줄로 유지 */
     display: inline-flex;
     flex-direction:row;
@@ -103,7 +103,7 @@ header #status {
     font-weight:500;
     gap: 8px;
 }
-#participants #people{
+#current #people{
     overflow: hidden; /* 넘치는 텍스트 숨기기 */
     white-space: nowrap; /* 텍스트를 한 줄로 유지 */
     cursor: pointer;
@@ -118,7 +118,7 @@ header .notice {
     overflow: hidden; /* 넘치는 텍스트 숨기기 */
     white-space: nowrap; /* 텍스트를 한 줄로 유지 */
     height: 120px;
-    width: 54%;
+    width: 50%;
     border-radius: 10px;
     border: 1px solid;
     border-color: #d9d9d9;
@@ -161,7 +161,7 @@ header .menu {
     display: inline-flex;
     align-items: center;
     height: 120px;
-    width: 150px;
+    width: 220px;
     border-radius: 10px;
     border: 1px solid;
     border-color: #d9d9d9;
@@ -617,68 +617,6 @@ header .menu {
     background-color: #012E6D;
 }
 
-/*알림창*/
-/* 알림창 숨김 기본값 */
-#notification {
-    display: none;
-    position:absolute;
-    align-items: center;
-    justify-content: center;
-    top: 170px;
-    right: 40px;
-    width: 500px;
-    max-height: 400px;
-    z-index: 1000;
-}
-/* 알림창 활성화 시 표시 */
-#notification.active {
-    display: flex; /* 알림창 보이기 */
-}
-#notification form{
-    position: relative;
-    width:100%;
-    height: 100%;
-    display: inline-flex;
-    place-items: center; /* 가로 및 세로 중앙 정렬 */
-    flex-direction: column; /* 세로 배치 */
-    gap:20px;
-}
-#mynotification{
-    cursor: pointer;
-    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
-    display:inline-flex;
-    flex-direction: row; /*가로 배치 */
-    align-items: center;     /* 세로 가운데 정렬 */
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 70px;
-}
-#notification-pic {
-    width: 30px;
-    height: 30px;
-    top: 0;
-    left: 0;
-    background-color: #ffffff;
-    border-radius: 137.28px / 132.5px;
-    border: 1px solid;
-    border-color: #c8c8c8;
-    overflow: hidden;
-    margin: 15px;
-}
-#notification-pic img{
-    width: 100%;
-    height: auto;
-    top: 0;
-    left: 0;
-}
-#notification-info{
-    overflow: hidden; /* 넘치는 텍스트 숨기기 */
-    color: #ffffff;
-}
-#notification-info #who{
-    color: aqua;
-}
-
 /*이모지 목록*/
 #emojiList {
     display: none; /* 기본적으로 숨김 */
@@ -716,3 +654,106 @@ header .menu {
     background: transparent;
 }
 
+/* 참가자 목록 */
+#participants section{
+    position:relative;
+    width: 520px;
+    height: 640px;
+    background-color: #ffffff;
+    border-radius: 70px;
+    border: 5px solid #d9d9d9;
+    justify-content: center;
+    align-items: center;
+}
+#participants form{
+    width:100%;
+    height: 100%;
+    display: inline-flex;
+    place-items: center; /* 가로 및 세로 중앙 정렬 */
+    flex-direction: column; /* 세로 배치 */
+    gap:20px;
+}
+#participants h2{
+    text-align: center;
+    width: 100%;
+    margin-top: 50px;
+}
+#participants #close{
+    position: absolute;
+    top: 30px;
+    right: 45px;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+#participants #total{
+    position: relative;
+    height: 450px;
+    width: 90%;
+    overflow: auto; /* 내용이 넘칠 경우 스크롤 가능 */
+    place-items: center; /* 가로 및 세로 중앙 정렬 */
+    overflow: auto; /* 내용이 넘칠 경우 스크롤 가능 */
+
+}
+#participants #total td{
+    width: 50%;
+    padding: 5px;
+}
+#participants #person{
+    position: relative;
+    cursor: pointer;
+    display: inline-flex;
+    align-self: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: #d9d9d9;
+}
+#participants #person #top{
+    position: absolute;
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    display: inline-flex;
+    flex-direction: row; /*가로 배치 */
+    width: 100%;
+    gap: 10px;
+}
+#participants #person #pic{
+    position: relative;
+    width: 55px;
+    height: 55px;
+    top: 0;
+    left: 5px;
+    border-radius: 137.28px / 132.5px;
+    overflow: hidden;
+}
+#participants #person #pic img{
+    height: auto;
+    width: 100%;
+    top: 0;
+    left: 0px;
+}
+#participants #person #top #info{
+    position: relative;
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    display: inline-flex;
+    flex-direction: column; /*세로 배치 */
+    height: 100%;
+    margin: 3px 3px 3px 3px;
+    vertical-align: middle;
+    gap: 8px;
+}
+#participants #person #info div{
+    position: relative;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    color: #252525;
+    font-weight: 500;
+    width: fit-content;
+    text-align: left;
+    padding : 1px 5px 1px 5px;
+}
