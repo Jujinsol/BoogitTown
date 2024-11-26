@@ -15,9 +15,9 @@
             <div id="date"></div>
             <div id="status">
                 <div id="time"></div>
-                <div id="participants">
+                <div id="current">
                     현재 인원
-                    <div id="people">1004</div>
+                    <div id="people" onclick="showparticipants(event)">1004</div>
                 </div>
             </div>
         </div>
@@ -33,10 +33,7 @@
             <table>
                 <tr>
                     <td><button>🧭</button></td>
-                    <td><button>👥</button></td>
-                </tr>
-                <tr>
-                    <td><button id="notificationButton">🔔</button></td>
+                    <td><button onclick="showparticipants()">👥</button></td>
                     <td><button>⚙️</button></td>
                 </tr>
             </table>
@@ -278,19 +275,182 @@
         </section>
     </div>
 
-    <!--알림창-->
-    <section id="notification">
-        <form>
-            <div id="mynotification">
-                <div id="notification-pic">
-                    <img />
-                </div>
-                <div id="notification-info">
-                    <span id="who">상상부기</span>님이 <span id="what">메시지</span>를 보냈습니다.
-                </div>
-            </div>
-        </form>
-    </section>
-
+    <!--참가자 목록-->
+    <div class="overlay" id="participants">
+        <section>
+            <form>
+                <h2>참가자 목록</h2>
+                <button id="close" onclick="closeparticipants()">x</button>                
+                <!--여기부터 수정-->
+                    <table id="total">
+                        <tr>
+                            <td>
+                                <div id="person">
+                                    <div id="top"> 
+                                        <div id="pic">
+                                            <img src="img/person.png"/>
+                                        </div>
+                                        <div id="info">
+                                            <div>닉네임</div>
+                                            <div>학부</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div id="person">
+                                    <div id="top"> 
+                                        <div id="pic">
+                                            <img src="img/person.png"/>
+                                        </div>
+                                        <div id="info">
+                                            <div>닉네임</div>
+                                            <div>학부</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="person">
+                                    <div id="top"> 
+                                        <div id="pic">
+                                            <img src="img/person.png"/>
+                                        </div>
+                                        <div id="info">
+                                            <div>닉네임</div>
+                                            <div>학부</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td><td>
+                                <div id="person">
+                                    <div id="top"> 
+                                        <div id="pic">
+                                            <img src="img/person.png"/>
+                                        </div>
+                                        <div id="info">
+                                            <div>닉네임</div>
+                                            <div>학부</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="person">
+                                    <div id="top"> 
+                                        <div id="pic">
+                                            <img src="img/person.png"/>
+                                        </div>
+                                        <div id="info">
+                                            <div>닉네임</div>
+                                            <div>학부</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td><td>
+                                <div id="person">
+                                    <div id="top"> 
+                                        <div id="pic">
+                                            <img src="img/person.png"/>
+                                        </div>
+                                        <div id="info">
+                                            <div>닉네임</div>
+                                            <div>학부</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="person">
+                                    <div id="top"> 
+                                        <div id="pic">
+                                            <img src="img/person.png"/>
+                                        </div>
+                                        <div id="info">
+                                            <div>닉네임</div>
+                                            <div>학부</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td><td>
+                                <div id="person">
+                                    <div id="top"> 
+                                        <div id="pic">
+                                            <img src="img/person.png"/>
+                                        </div>
+                                        <div id="info">
+                                            <div>닉네임</div>
+                                            <div>학부</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="person">
+                                    <div id="top"> 
+                                        <div id="pic">
+                                            <img src="img/person.png"/>
+                                        </div>
+                                        <div id="info">
+                                            <div>닉네임</div>
+                                            <div>상상력교양대학</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div id="person">
+                                    <div id="top"> 
+                                        <div id="pic">
+                                            <img src="img/person.png"/>
+                                        </div>
+                                        <div id="info">
+                                            <div>닉네임</div>
+                                            <div>학부</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="person">
+                                    <div id="top"> 
+                                        <div id="pic">
+                                            <img src="img/person.png"/>
+                                        </div>
+                                        <div id="info">
+                                            <div>닉네임</div>
+                                            <div>상상력교양대학</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div id="person">
+                                    <div id="top"> 
+                                        <div id="pic">
+                                            <img src="img/person.png"/>
+                                        </div>
+                                        <div id="info">
+                                            <div>닉네임</div>
+                                            <div>학부</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+            </form>
+        </section>
+    </div>
 </body>
 </html>
