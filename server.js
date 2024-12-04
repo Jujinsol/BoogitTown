@@ -160,13 +160,17 @@ app.put('/update', async (req, res) => {
         res.status(500).json({ message: '서버 오류' });
     }
 });
-
+// 현재 접속 인원 수를 관리할 변수
+let onlineUsers = 0;
 // Socket.io events
 io.on('connection', (socket) => {
     console.log('a user connected');
+    //접속 인원 관리 코드 추가
+    onlineUsers++;
+    io.emit('updateOnlineUsers', { onlineUsers }); // 모든 클라이언트에 접속 인원 브로드캐스트
+    console.log(`User connected. Current online users: ${onlineUsers}`);
 
     io.emit('updatePlayers', backEndPlayers);
-
     socket.on('initGame', ({ username, width, height, imgSrc, major }) => {
         backEndPlayers[socket.id] = {
             //x: Math.floor(10 * Math.random()) + 512,
@@ -202,6 +206,12 @@ io.on('connection', (socket) => {
 
     socket.on('disconnect', (reason) => {
         console.log(reason);
+
+        // 접속 인원 감소 처리
+        onlineUsers--;
+        io.emit('updateOnlineUsers', { onlineUsers }); // 클라이언트로 접속 인원 브로드캐스트
+
+        console.log(`User disconnected. Current online users: ${onlineUsers}`);
         delete backEndPlayers[socket.id];
         io.emit('updatePlayers', backEndPlayers);
     });

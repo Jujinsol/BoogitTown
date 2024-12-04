@@ -11,17 +11,12 @@ class Player {
     this.image = new Image();
     this.image.src = imgSrc;
 
-    // 이미지 로드 확인
-    this.image.onload = () => {
-      console.log('Image loaded successfully ', imgSrc);
-    };
-
     this.image.onerror = () => {
       console.error('Failed to load image:', imgSrc);
       this.image = null; // 이미지 로드 실패 시 null로 설정
     };
   }
-
+  
   draw() {
     // 플레이어 이름을 이미지 위에 그리기
     c.font = '12px sans-serif';

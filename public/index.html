@@ -113,7 +113,8 @@
         <div class="mypageScreen">
             <div class="mypageLeft">
                 <div id="mypageLeft1">
-                    <button onclick="goToMain()" id="mypageBackButton"><img id="arrowBack" src="img/arrow_back.png" /></button>
+                    <button onclick="goToMain()" id="mypageBackButton"><img id="arrowBack"
+                            src="img/arrow_back.png" /></button>
                 </div>
                 <div id="mypageLeft2">
                     <div class="box1">
@@ -134,7 +135,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mypageRight" >
+            <div class="mypageRight">
                 <div class="view">
                     <div id="caption">
                         <img src="img/account.png" />
@@ -145,11 +146,11 @@
                 <div id="myProfile">
                     <img id="myProfileImg" src="img/default/02.png" />
                 </div>
-                <div id="myName">이름  :  </div>
-                <div id="myNum">학번  :  </div>
+                <div id="myName">이름 : </div>
+                <div id="myNum">학번 : </div>
                 <div class="group">
-                    <div id="myNickName">닉네임  :  <input type="text" id="newNickname" name="textInput"/></div>
-                    <div id="myMajor">학부  :  
+                    <div id="myNickName">닉네임 : <input type="text" id="newNickname" name="textInput" /></div>
+                    <div id="myMajor">학부 :
                         <select id="newMajor">
                             <option value="IT공과대학">IT공과대학</option>
                             <option value="인문예술대학">인문예술대학</option>
@@ -159,8 +160,9 @@
                             <option value="미래플러스대학">미래플러스대학</option>
                             <option value="상상력교양대학">상상력교양대학</option>
                             <option value="글로벌인재학부">글로벌인재학부</option>
-                        </select></div>
-                    <div id="myPwd">비밀번호  :  <input type="password" id="newPass" name="textInput"/></div>
+                        </select>
+                    </div>
+                    <div id="myPwd">비밀번호 : <input type="password" id="newPass" name="textInput" /></div>
                 </div>
                 <button id="editButton"><img id="icon" src="img/edit.png" />수정</button>
                 <div id="logout">
@@ -183,5 +185,40 @@
 <script src="./js/classes/Player.js"></script>
 <script src="./js/frontend.js"></script>
 <script src="./js/eventListeners.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    // 초기 상태: 로딩 중 표시
+    const peopleElement = document.getElementById('people');
+    if (peopleElement) {
+        peopleElement.textContent = '로딩 중...';
+    }
+
+    // 접속 인원 업데이트 이벤트 수신
+    socket.on('updateOnlineUsers', ({ onlineUsers }) => {
+        if (peopleElement) {
+            peopleElement.textContent = onlineUsers;
+        }
+    });
+
+    // 네트워크 오류 처리
+    socket.on('connect_error', () => {
+        if (peopleElement) {
+            peopleElement.textContent = '오류 발생';
+        }
+    });
+
+    // 현재 시간을 1초 간격으로 업데이트
+    setInterval(() => {
+        const timeElement = document.getElementById('time');
+        if (timeElement) {
+            const now = new Date();
+            timeElement.textContent = now.toLocaleTimeString(); // 현재 시간을 표시
+        }
+    }, 1000); // 1초마다 실행
+
+</script>
+
 
 </html>
