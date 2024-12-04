@@ -664,6 +664,7 @@ header .menu button img {
 
 canvas {
     background-image: url('../img/background.png');
+    background-size: cover;
 }
 
 /* #endregion */

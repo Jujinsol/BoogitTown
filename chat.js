@@ -22,6 +22,8 @@ router.post('/create-chatroom', (req, res) => {
     });
 });
 
+const roomUserCounts = {};
+
 // 채팅방 로드
 router.get('/load-chatroom', (req, res) => {
     const query = `SELECT * FROM chatrooms`;
@@ -35,7 +37,8 @@ router.get('/load-chatroom', (req, res) => {
 // 채팅방 참여
 router.get('/join-chatroom/:chatroomId', (req, res) => {
     const { chatroomId } = req.params;
-    
+    if (roomUserCounts[chatroomId] == undefined) roomUserCounts[chatroomId] = 0;
+    roomUserCounts[chatroomId] += 1;
     const query = `SELECT * FROM chatrooms WHERE id = (select id from chatrooms where name = ?);`;
 
     db.query(query, [chatroomId], (err, results) => {
@@ -47,9 +50,21 @@ router.get('/join-chatroom/:chatroomId', (req, res) => {
         if (results.length === 0) {
             return res.status(404).json({ message: '채팅방을 찾을 수 없습니다.' });
         }
-
-        res.status(200).json({ message: '채팅방 입장 성공', chatroom: results[0] });
+        res.status(200).json({ message: '채팅방 입장 성공', chatroom: results[0], userCount: roomUserCounts});
     });
+});
+
+router.post('/out-chatroom/:chatroomId', (req, res) => {
+    const { chatroomId } = req.params;
+
+    // 사용자 수 감소 처리
+    roomUserCounts[chatroomId] -= 1;
+
+    // 사용자 수가 0보다 작아지는 경우 방지
+    if (roomUserCounts[chatroomId] < 0 || roomUserCounts[chatroomId] === undefined) {
+        roomUserCounts[chatroomId] = 0;
+    }
+    res.status(200).json({ message: '채팅방 퇴장', userCount: roomUserCounts });
 });
 
 // 메시지 전송

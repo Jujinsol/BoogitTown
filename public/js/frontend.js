@@ -143,6 +143,7 @@ const keys = {
 const SPEED = 5
 const playerInputs = []
 let sequenceNumber = 0
+
 setInterval(() => {
   if (keys.w.pressed) {
     sequenceNumber++
@@ -172,6 +173,7 @@ setInterval(() => {
     socket.emit('keydown', { keycode: 'KeyD', sequenceNumber })
   }
 }, 15)
+
 
 window.addEventListener('keydown', (event) => {
   if (!frontEndPlayers[socket.id]) return
@@ -217,7 +219,6 @@ window.addEventListener('keyup', (event) => {
   }
 })
 
-
 document.addEventListener('DOMContentLoaded', () => {
   // 현재  가져오기
   const now = new Date();
@@ -248,6 +249,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 let userData;
+let currentRoomId = '메인채팅';
+let roomUserCounts = {};
 
 document.querySelector('#loginForm').addEventListener('submit', async (event) => {
   event.preventDefault()
@@ -283,7 +286,7 @@ document.querySelector('#loginForm').addEventListener('submit', async (event) =>
   document.getElementById('myFace').src = `./img/${data.img}.png`;
   document.getElementById('myNickname').innerHTML = data.nickname;
   document.getElementById('myMajor').innerHTML = data.major;
-
+  enterChatRoom();
   loadMessages();
 })
 
@@ -323,8 +326,6 @@ document.getElementById('makeRoomButton').addEventListener('click', function () 
   var roomModalContainer = document.querySelector('.roomModalContainer');
   roomModalContainer.classList.add('active'); // 모달을 보이도록 active 클래스 추가
 });
-
-let currentRoomId = '메인채팅';
 
 // 채팅방 로드 함수
 async function loadChatRooms() {
@@ -366,7 +367,8 @@ async function loadChatRooms() {
       const titleDiv = document.createElement('div');
       titleDiv.textContent = room.name; // 방 제목
       const participantsDiv = document.createElement('div');
-      participantsDiv.textContent = `인원수: ${room.participants}`; // 인원 수 (예시로 추가, 실제 데이터에 맞게 변경)
+      participantsDiv.id = `${room.name}`;
+      participantsDiv.textContent = `인원수: `;
 
       infoDiv.appendChild(titleDiv);
       infoDiv.appendChild(participantsDiv);
@@ -381,10 +383,10 @@ async function loadChatRooms() {
 
       // 채팅방 버튼 클릭 시 해당 방 입장
       roomDiv.onclick = () => {
-        if (currentRoomId != '메인채팅')
-          exitRoom();
+        exitRoom();
         currentRoomId = room.name; // 선택된 채팅방 ID 저장
         enterChatRoom(); // 채팅방 입장
+        loadMessages();
         updateLayout();
       };
 
@@ -411,13 +413,17 @@ function enterChatRoom() {
       return response.json();
     })
     .then(data => {
-      console.log('채팅방 입장 성공:', data.chatroom);
+      console.log(data.userCount[currentRoomId]);
+      if (currentRoomId == '메인채팅')
+        document.getElementById('people').innerHTML = data.userCount[currentRoomId];
+      else {
+        document.getElementById(`${currentRoomId}`).innerHTML = "인원수 : " + data.userCount[currentRoomId];
+      }
     })
     .catch(error => {
       console.error('오류:', error.message);
       alert(error.message); // 사용자에게 오류 알림
     });
-  loadMessages(); // 메시지 로드
 }
 
 async function loadMessages() {
@@ -509,11 +515,29 @@ socket.on('newMessage', ({ user_id, content, timestamp }) => {
   loadMessages(); // 새 메시지 조회
 });
 
-// 채팅방 나가기
 function exitRoom() {
-  currentRoomId = '메인채팅';
-  resetLayout();
+  fetch(`/chat/out-chatroom/${currentRoomId}`, {
+    method: 'POST', // POST 요청
+    headers: {
+      'Content-Type': 'application/json', // JSON 데이터 전송
+    },
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('채팅방 퇴장 요청에 실패했습니다.');
+      }
+      return response.json();
+    })
+    .then(data => {
+    })
+    .catch(error => {
+      console.error('오류:', error.message);
+      alert('퇴장 중 오류가 발생했습니다.');
+    });
 }
+
+// 호출 예제
+leaveChatRoom('exampleChatroomId');
 
 document.getElementById('logoutButton').addEventListener('click', async () => {
   try {
@@ -602,8 +626,6 @@ function goToMypage() {
 
   document.getElementById('myName').innerHTML += userData.name;
   document.getElementById('myNum').innerHTML += userData.studentnum;
-
-  console.log("오호 ", userData);
 }
 
 function goToMain() {
@@ -621,7 +643,7 @@ function updateLayout() {
   const bottom = document.getElementById('bottom');
   const chat = document.getElementById('chatMessages');
   const sendInput = document.getElementById('messageInput');
-  
+
   // 채팅방 상단 생성
   const roomTop = document.createElement('div');
   roomTop.id = 'roomTop';
@@ -659,6 +681,10 @@ function updateLayout() {
     roomTop.removeChild(roomTitle);
     bottom.removeChild(roomTop);
     exitRoom();
+    currentRoomId = '메인채팅';
+    enterChatRoom();
+    loadMessages();
+    resetLayout();
   });
 }
 
@@ -671,8 +697,7 @@ function resetLayout() {
   const chat = document.getElementById('chatMessages');
   const sendInput = document.getElementById('messageInput');
   const roomTitle = document.getElementById('roomTitle');
-  roomTitle.remove();
-  
+
   chatMessages.style.height = '';
   chatMessages.style.marginTop = '';
 
