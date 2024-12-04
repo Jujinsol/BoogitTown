@@ -82,8 +82,10 @@ app.post('/login', (req, res) => {
             return res.status(401).json({ message: '비밀번호가 일치하지 않습니다.' });
         }
 
-        res.status(200).json({ message: '로그인 성공', userId: user.id, nickname: user.nickname, 
-            img: user.img, major: user.major, studentnum: user.studentnum, name:user.name });
+        res.status(200).json({
+            message: '로그인 성공', userId: user.id, nickname: user.nickname,
+            img: user.img, major: user.major, studentnum: user.studentnum, name: user.name
+        });
     });
 });
 
@@ -167,8 +169,10 @@ io.on('connection', (socket) => {
 
     socket.on('initGame', ({ username, width, height, imgSrc, major }) => {
         backEndPlayers[socket.id] = {
-            x: 1024 * Math.random(),
-            y: 576 * Math.random(),
+            //x: Math.floor(10 * Math.random()) + 512,
+            //y: Math.floor(10 * Math.random()) + 200,
+            x: 512,
+            y: 288,
             color: `hsl(${360 * Math.random()}, 100%, 50%)`,
             sequenceNumber: 0,
             score: 0,

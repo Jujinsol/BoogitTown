@@ -42,7 +42,6 @@ socket.on('updatePlayers', (backEndPlayers) => {
 
       document
         .querySelector(`div[data-id="${id}"]`)
-        .setAttribute('data-score', backEndPlayer.score)
 
       // sorts the players divs
       const parentDiv = document.querySelector('#playerLabels')
@@ -143,36 +142,83 @@ const keys = {
 const SPEED = 5
 const playerInputs = []
 let sequenceNumber = 0
+let mapData = [];
+const TILE_SIZE = 36; // 타일의 크기
+const mapWidth = 2048; // 맵의 가로 크기 (타일 수)
+const mapHeight = 1152; // 맵의 세로 크기 (타일 수)
+
+// JSON 맵 데이터 로드
+fetch('map.json')
+  .then(response => response.json())
+  .then(json => {
+    const collisionLayer = json.layers.find(layer => layer.name === 'Collisions');
+    if (collisionLayer) {
+      mapData = collisionLayer.data;
+    }
+  })
+  .catch(error => {
+    console.error('맵 데이터를 로드하는 중 오류 발생:', error.message);
+  });
+
+// 맵 충돌 검사
+function canMoveTo(newX, newY) {
+  const col = Math.floor(newX / 16);
+  const row = Math.floor(newY / 16);
+
+  let map = [];
+
+  for (let i = 0; i < 36; i++) {
+    map[i] = [];
+    for (let j = 0; j < 64; j++) {
+      let index = i * 64 + j;
+      map[i][j] = mapData[index];
+    }
+  }
+
+  if (row < 0 || col < 0 || row >= mapHeight || col >= mapWidth) {
+    return false;
+  }
+  return map[row][col] == 0;
+}
 
 setInterval(() => {
+  if (!frontEndPlayers[socket.id]) return;
+  const player = frontEndPlayers[socket.id];
+  let newX = player.x;
+  let newY = player.y;
+
   if (keys.w.pressed) {
-    sequenceNumber++
-    playerInputs.push({ sequenceNumber, dx: 0, dy: -SPEED })
-    // frontEndPlayers[socket.id].y -= SPEED
-    socket.emit('keydown', { keycode: 'KeyW', sequenceNumber })
+    newY -= SPEED;
+    if (canMoveTo(newX, newY)) {
+      playerInputs.push({ sequenceNumber, dx: 0, dy: -SPEED });
+      socket.emit('keydown', { keycode: 'KeyW', sequenceNumber });
+    }
   }
 
   if (keys.a.pressed) {
-    sequenceNumber++
-    playerInputs.push({ sequenceNumber, dx: -SPEED, dy: 0 })
-    // frontEndPlayers[socket.id].x -= SPEED
-    socket.emit('keydown', { keycode: 'KeyA', sequenceNumber })
+    newX -= SPEED;
+    if (canMoveTo(newX, newY)) {
+      playerInputs.push({ sequenceNumber, dx: -SPEED, dy: 0 });
+      socket.emit('keydown', { keycode: 'KeyA', sequenceNumber });
+    }
   }
 
   if (keys.s.pressed) {
-    sequenceNumber++
-    playerInputs.push({ sequenceNumber, dx: 0, dy: SPEED })
-    // frontEndPlayers[socket.id].y += SPEED
-    socket.emit('keydown', { keycode: 'KeyS', sequenceNumber })
+    newY += SPEED;
+    if (canMoveTo(newX, newY)) {
+      playerInputs.push({ sequenceNumber, dx: 0, dy: SPEED });
+      socket.emit('keydown', { keycode: 'KeyS', sequenceNumber });
+    }
   }
 
   if (keys.d.pressed) {
-    sequenceNumber++
-    playerInputs.push({ sequenceNumber, dx: SPEED, dy: 0 })
-    // frontEndPlayers[socket.id].x += SPEED
-    socket.emit('keydown', { keycode: 'KeyD', sequenceNumber })
+    newX += SPEED;
+    if (canMoveTo(newX, newY)) {
+      playerInputs.push({ sequenceNumber, dx: SPEED, dy: 0 });
+      socket.emit('keydown', { keycode: 'KeyD', sequenceNumber });
+    }
   }
-}, 15)
+}, 15);
 
 
 window.addEventListener('keydown', (event) => {
