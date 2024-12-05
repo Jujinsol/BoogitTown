@@ -139,6 +139,8 @@ setInterval(() => {
   let newX = player.x;
   let newY = player.y;
 
+  console.log(player.x + " "+player.y);
+  
   if (keys.w.pressed) {
     newY -= SPEED;
     if (canMoveTo(newX, newY)) {
@@ -170,6 +172,7 @@ setInterval(() => {
       socket.emit('keydown', { keycode: 'KeyD', sequenceNumber, imgSrc: 'playerRight' });
     }
   }
+
 }, 15);
 
 
@@ -508,7 +511,6 @@ socket.on('newMessage', ({ user_id, content, timestamp }) => {
 const onlineUsersEl = document.querySelector('#onlineUsers');
 
 socket.on('updateOnlineUsers', ({ onlineUsers }) => {
-  console.log(`Online users: ${onlineUsers}`);
   document.getElementById('people').innerHTML = onlineUsers;
 });
 

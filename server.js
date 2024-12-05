@@ -172,8 +172,6 @@ io.on('connection', (socket) => {
     io.emit('updatePlayers', backEndPlayers);
     socket.on('initGame', ({ username, width, height, imgSrc, major }) => {
         backEndPlayers[socket.id] = {
-            //x: Math.floor(10 * Math.random()) + 512,
-            //y: Math.floor(10 * Math.random()) + 200,
             x: 512,
             y: 288,
             color: `hsl(${360 * Math.random()}, 100%, 50%)`,
