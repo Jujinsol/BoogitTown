@@ -112,7 +112,7 @@ socket.on('updatePlayers', (backEndPlayers) => {
         radius: 10,
         color: backEndPlayer.color,
         username: backEndPlayer.username,
-        imgSrc: `./img/${backEndPlayer.imgSrc}.png`,
+        imgSrc: `./img/player/${backEndPlayer.imgSrc}.png`,
         major: backEndPlayer.major,
       });
 
@@ -124,7 +124,7 @@ socket.on('updatePlayers', (backEndPlayers) => {
       frontEndPlayers[id].updateDraw({
         x: backEndPlayer.x,
         y: backEndPlayer.y,
-        imgSrc: `./img/${backEndPlayer.imgSrc}.png`,
+        imgSrc: `./img/player/${backEndPlayer.imgSrc}.png`,
       });
     }
 
@@ -374,7 +374,7 @@ document.querySelector('#loginForm').addEventListener('submit', async (event) =>
   document.getElementById('mainContent').style.display = 'block';
   document.body.style.backgroundColor = "white";
 
-  document.getElementById('myFace').src = `./img/${data.img}.png`;
+  document.getElementById('myFace').src = `./img/player/${data.img}.png`;
   document.getElementById('myNickname').innerHTML = data.nickname;
   document.getElementById('myMajor').innerHTML = data.major;
   enterChatRoom();
@@ -450,7 +450,7 @@ async function loadChatRooms() {
       const picDiv = document.createElement('div');
       picDiv.id = 'pic';
       const picImg = document.createElement('img');
-      picImg.src = 'img/group.png'; // 임시 이미지, 실제로는 방 생성자 이미지로 바꿀 수 있음
+      picImg.src = 'img/etc/group.png'; // 임시 이미지, 실제로는 방 생성자 이미지로 바꿀 수 있음
       picDiv.appendChild(picImg);
 
       const infoDiv = document.createElement('div');
@@ -711,7 +711,7 @@ function goToMypage() {
   document.getElementById('mypage').style.display = 'block';
 
 
-  document.getElementById('mypageFace').src = `./img/${userData.img}.png`;
+  document.getElementById('mypageFace').src = `./img/player/${userData.img}.png`;
   document.getElementById('mypageNickname').innerHTML = userData.nickname;
   document.getElementById('mypageMajor').innerHTML = userData.major;
 
