@@ -31,10 +31,6 @@ socket.on('updatePlayers', (backEndPlayers) => {
         imgSrc: `./img/player/${backEndPlayer.imgSrc}.png`,
         major: backEndPlayer.major,
       });
-
-      document.querySelector(
-        '#playerLabels'
-      ).innerHTML += `<div data-id="${id}" data-score="${backEndPlayer.score}">${backEndPlayer.username}: ${backEndPlayer.score}</div>`;
     } else {
       // 기존 플레이어의 상태 업데이트
       frontEndPlayers[id].updateDraw({
@@ -42,12 +38,6 @@ socket.on('updatePlayers', (backEndPlayers) => {
         y: backEndPlayer.y,
         imgSrc: `./img/player/${backEndPlayer.imgSrc}.png`,
       });
-    }
-
-    // 플레이어 점수 업데이트
-    const playerLabel = document.querySelector(`div[data-id="${id}"]`);
-    if (playerLabel) {
-      playerLabel.innerHTML = `${backEndPlayer.username}: ${backEndPlayer.score}`;
     }
   }
 

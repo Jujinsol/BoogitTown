@@ -22,7 +22,6 @@ app.use(express.static(__dirname + '/boogietown-dadadadamin'));
 
 // Backend data structures
 const backEndPlayers = {};
-const backEndProjectiles = {};
 
 const SPEED = 5;
 const RADIUS = 10;
@@ -260,46 +259,7 @@ io.on('connection', (socket) => {
     });
 });
 
-// Backend ticker to update projectiles and players
 setInterval(() => {
-    for (const id in backEndProjectiles) {
-        backEndProjectiles[id].x += backEndProjectiles[id].velocity.x;
-        backEndProjectiles[id].y += backEndProjectiles[id].velocity.y;
-
-        if (
-            backEndProjectiles[id].x - PROJECTILE_RADIUS >=
-            backEndPlayers[backEndProjectiles[id].playerId]?.canvas?.width ||
-            backEndProjectiles[id].x + PROJECTILE_RADIUS <= 0 ||
-            backEndProjectiles[id].y - PROJECTILE_RADIUS >=
-            backEndPlayers[backEndProjectiles[id].playerId]?.canvas?.height ||
-            backEndProjectiles[id].y + PROJECTILE_RADIUS <= 0
-        ) {
-            delete backEndProjectiles[id];
-            continue;
-        }
-
-        for (const playerId in backEndPlayers) {
-            const backEndPlayer = backEndPlayers[playerId];
-
-            const DISTANCE = Math.hypot(
-                backEndProjectiles[id].x - backEndPlayer.x,
-                backEndProjectiles[id].y - backEndPlayer.y
-            );
-
-            if (
-                DISTANCE < PROJECTILE_RADIUS + backEndPlayer.radius &&
-                backEndProjectiles[id].playerId !== playerId
-            ) {
-                if (backEndPlayers[backEndProjectiles[id].playerId]) {
-                    backEndPlayers[backEndProjectiles[id].playerId].score++;
-                }
-
-                delete backEndProjectiles[id];
-                delete backEndPlayers[playerId];
-                break;
-            }
-        }
-    }
     io.emit('updatePlayers', backEndPlayers);
 }, 15);
 
