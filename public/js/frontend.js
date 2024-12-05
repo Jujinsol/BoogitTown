@@ -16,90 +16,6 @@ const x = canvas.width / 2
 const y = canvas.height / 2
 
 const frontEndPlayers = {}
-/*
-socket.on('updatePlayers', (backEndPlayers) => {
-  for (const id in backEndPlayers) {
-    const backEndPlayer = backEndPlayers[id]
-
-    if (!frontEndPlayers[id]) {
-      frontEndPlayers[id] = new Player({
-        x: backEndPlayer.x,
-        y: backEndPlayer.y,
-        radius: 10,
-        color: backEndPlayer.color,
-        username: backEndPlayer.username,
-        imgSrc: `./img/${backEndPlayer.imgSrc}.png`,
-        major: backEndPlayer.major,
-      });
-
-      document.querySelector(
-        '#playerLabels'
-      ).innerHTML += `<div data-id="${id}" data-score="${backEndPlayer.score}">${backEndPlayer.username}: ${backEndPlayer.score}</div>`
-    } else {
-      document.querySelector(
-        `div[data-id="${id}"]`
-      ).innerHTML = `${backEndPlayer.username}`
-
-      document
-        .querySelector(`div[data-id="${id}"]`)
-
-      // sorts the players divs
-      const parentDiv = document.querySelector('#playerLabels')
-      const childDivs = Array.from(parentDiv.querySelectorAll('div'))
-
-      childDivs.sort((a, b) => {
-        const scoreA = Number(a.getAttribute('data-score'))
-        const scoreB = Number(b.getAttribute('data-score'))
-
-        return scoreB - scoreA
-      })
-
-      // removes old elements
-      childDivs.forEach((div) => {
-        parentDiv.removeChild(div)
-      })
-
-      // adds sorted elements
-      childDivs.forEach((div) => {
-        parentDiv.appendChild(div)
-      })
-
-      frontEndPlayers[id].target = {
-        x: backEndPlayer.x,
-        y: backEndPlayer.y
-      }
-
-      if (id === socket.id) {
-        const lastBackendInputIndex = playerInputs.findIndex((input) => {
-          return backEndPlayer.sequenceNumber === input.sequenceNumber
-        })
-
-        if (lastBackendInputIndex > -1)
-          playerInputs.splice(0, lastBackendInputIndex + 1)
-
-        playerInputs.forEach((input) => {
-          frontEndPlayers[id].target.x += input.dx
-          frontEndPlayers[id].target.y += input.dy
-        })
-      }
-    }
-  }
-
-  // this is where we delete frontend players
-  for (const id in frontEndPlayers) {
-    if (!backEndPlayers[id]) {
-      const divToDelete = document.querySelector(`div[data-id="${id}"]`)
-      divToDelete.parentNode.removeChild(divToDelete)
-
-      if (id === socket.id) {
-        document.querySelector('#loginForm').style.display = 'block'
-      }
-
-      delete frontEndPlayers[id]
-    }
-  }
-})
-*/
 
 socket.on('updatePlayers', (backEndPlayers) => {
   for (const id in backEndPlayers) {
@@ -341,7 +257,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let userData;
 let currentRoomId = '메인채팅';
-let roomUserCounts = {};
 
 document.querySelector('#loginForm').addEventListener('submit', async (event) => {
   event.preventDefault()
@@ -504,12 +419,6 @@ function enterChatRoom() {
       return response.json();
     })
     .then(data => {
-      console.log(data.userCount[currentRoomId]);
-      if (currentRoomId == '메인채팅')
-        document.getElementById('people').innerHTML = data.userCount[currentRoomId];
-      else {
-        document.getElementById(`${currentRoomId}`).innerHTML = "인원수 : " + data.userCount[currentRoomId];
-      }
     })
     .catch(error => {
       console.error('오류:', error.message);
@@ -604,6 +513,13 @@ async function sendMessage() {
 socket.on('newMessage', ({ user_id, content, timestamp }) => {
   console.log(`새 메시지: ${user_id} - ${content}`);
   loadMessages(); // 새 메시지 조회
+});
+
+const onlineUsersEl = document.querySelector('#onlineUsers');
+
+socket.on('updateOnlineUsers', ({ onlineUsers }) => {
+  console.log(`Online users: ${onlineUsers}`);
+  document.getElementById('people').innerHTML = onlineUsers;
 });
 
 function exitRoom() {
