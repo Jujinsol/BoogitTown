@@ -94,18 +94,20 @@ const keys = {
 const SPEED = 5
 const playerInputs = []
 let sequenceNumber = 0
-let mapData = [];
-const TILE_SIZE = 36; // 타일의 크기
-const mapWidth = 2048; // 맵의 가로 크기 (타일 수)
-const mapHeight = 1152; // 맵의 세로 크기 (타일 수)
+let mainMapData = [];
+let roomMapData = [];
 
 // JSON 맵 데이터 로드
 fetch('map.json')
   .then(response => response.json())
   .then(json => {
-    const collisionLayer = json.layers.find(layer => layer.name === 'Collisions');
-    if (collisionLayer) {
-      mapData = collisionLayer.data;
+    const collisionLayer1 = json.layers.find(layer => layer.name === 'Collisions');
+    const collisionLayer2 = json.layers.find(layer => layer.name === 'RoomCollisions');
+    if (collisionLayer1) {
+      mainMapData = collisionLayer1.data;
+    }
+    if (collisionLayer2) {
+      roomMapData = collisionLayer2.data;
     }
   })
   .catch(error => {
@@ -114,25 +116,52 @@ fetch('map.json')
 
 // 맵 충돌 검사
 function canMoveTo(newX, newY) {
-  const col = Math.floor(newX / 16);
-  const row = Math.floor(newY / 16);
+  if (currentRoomId == '메인광장') {
+    const mapWidth = 2048;
+    const mapHeight = 1152;
 
-  let map = [];
+    const col = Math.floor(newX / 16);
+    const row = Math.floor(newY / 16);
 
-  for (let i = 0; i < 36; i++) {
-    map[i] = [];
-    for (let j = 0; j < 64; j++) {
-      let index = i * 64 + j;
-      map[i][j] = mapData[index];
+    let map = [];
+
+    for (let i = 0; i < 36; i++) {
+      map[i] = [];
+      for (let j = 0; j < 64; j++) {
+        let index = i * 64 + j;
+        map[i][j] = mainMapData[index];
+      }
     }
-  }
 
-  if (row < 0 || col < 0 || row >= mapHeight || col >= mapWidth) {
-    return false;
+    if (row < 0 || col < 0 || row >= mapHeight || col >= mapWidth) {
+      return false;
+    }
+    return map[row][col] == 0;
   }
-  return map[row][col] == 0;
+  else {
+    const mapWidth = 896;
+    const mapHeight = 800;
+
+    const col = Math.floor(newX / 16);
+    const row = Math.floor(newY / 16);
+
+    let map = [];
+
+    for (let i = 0; i < 25; i++) {
+      map[i] = [];
+      for (let j = 0; j < 28; j++) {
+        let index = i * 28 + j;
+        map[i][j] = roomMapData[index];
+      }
+    }
+
+    if (row < 0 || col < 0 || row >= mapHeight || col >= mapWidth) {
+      return false;
+    }
+    return map[row][col] == 0;
+  }
 }
-let isConfirmOpen = false; // 다이얼로그 플래그
+let isConfirmOpen = false;
 
 setInterval(() => {
   if (!frontEndPlayers[socket.id]) return;
@@ -141,13 +170,13 @@ setInterval(() => {
   let newX = player.x;
   let newY = player.y;
 
-  console.log(player.x + " " + player.y + " " + currentRoomId);
+  //console.log(player.x + " " + player.y);
 
   if (keys.w.pressed) {
     newY -= SPEED;
     if (canMoveTo(newX, newY)) {
       playerInputs.push({ sequenceNumber, dx: 0, dy: -SPEED });
-      socket.emit('keydown', { keycode: 'KeyW', sequenceNumber, imgSrc: 'playerUp' });
+      socket.emit('keydown', { keycode: 'KeyW', sequenceNumber, imgSrc: userData.img+'Up' });
     }
   }
 
@@ -155,7 +184,7 @@ setInterval(() => {
     newX -= SPEED;
     if (canMoveTo(newX, newY)) {
       playerInputs.push({ sequenceNumber, dx: -SPEED, dy: 0 });
-      socket.emit('keydown', { keycode: 'KeyA', sequenceNumber, imgSrc: 'playerLeft' });
+      socket.emit('keydown', { keycode: 'KeyA', sequenceNumber, imgSrc: userData.img+'Left' });
     }
   }
 
@@ -163,7 +192,7 @@ setInterval(() => {
     newY += SPEED;
     if (canMoveTo(newX, newY)) {
       playerInputs.push({ sequenceNumber, dx: 0, dy: SPEED });
-      socket.emit('keydown', { keycode: 'KeyS', sequenceNumber, imgSrc: 'playerDown' });
+      socket.emit('keydown', { keycode: 'KeyS', sequenceNumber, imgSrc: userData.img+'Down' });
     }
   }
 
@@ -171,7 +200,7 @@ setInterval(() => {
     newX += SPEED;
     if (canMoveTo(newX, newY)) {
       playerInputs.push({ sequenceNumber, dx: SPEED, dy: 0 });
-      socket.emit('keydown', { keycode: 'KeyD', sequenceNumber, imgSrc: 'playerRight' });
+      socket.emit('keydown', { keycode: 'KeyD', sequenceNumber, imgSrc: userData.img+'Right' });
     }
   }
 
@@ -183,10 +212,23 @@ setInterval(() => {
 
 function enterITChat() {
   alert("IT 공과대학 단체 채팅에 입장합니다");
+
   canvas.style.backgroundImage = "url('../img/ChatRoom.png')";
-  canvas.width = 512;
-  canvas.height = 512;
+  canvas.width = 448;
+  canvas.height = 400;
   currentRoomId = 'IT 공대 단체 채팅';
+
+  if (frontEndPlayers[socket.id]) {
+    frontEndPlayers[socket.id].x = 288;
+    frontEndPlayers[socket.id].y = 288;
+
+    socket.emit('playerPositionUpdate', {
+      x: frontEndPlayers[socket.id].x,
+      y: frontEndPlayers[socket.id].y,
+      roomId: currentRoomId,
+    });
+  }
+
   enterChatRoom();
   loadMessages();
   updateLayout();
@@ -428,7 +470,7 @@ function enterChatRoom() {
       return response.json();
     })
     .then(data => {
-      document.getElementById('myPlace').innerHTML = "현위치 : " + currentRoomId;      
+      document.getElementById('myPlace').innerHTML = "현위치 : " + currentRoomId;
     })
     .catch(error => {
       console.error('오류:', error.message);
@@ -550,6 +592,18 @@ function exitRoom() {
       canvas.style.backgroundImage = "url('../img/background.png')";
       canvas.style.backgroundSize = "cover";
       c.scale(devicePixelRatio, devicePixelRatio)
+
+
+      if (frontEndPlayers[socket.id]) {
+        frontEndPlayers[socket.id].x = 512;
+        frontEndPlayers[socket.id].y = 288;
+
+        socket.emit('playerPositionUpdate', {
+          x: frontEndPlayers[socket.id].x,
+          y: frontEndPlayers[socket.id].y,
+          roomId: currentRoomId,
+        });
+      }
     })
     .catch(error => {
       console.error('오류:', error.message);

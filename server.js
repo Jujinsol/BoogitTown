@@ -191,10 +191,15 @@ io.on('connection', (socket) => {
         backEndPlayers[socket.id].radius = RADIUS;
     });
 
-    socket.on('joinRoom', ({ roomId }) => {
-        socket.join(roomId);
-        console.log(`User joined room ${roomId}`);
-    });
+    socket.on('playerPositionUpdate', (data) => {
+        const player = backEndPlayers[socket.id];
+        if (player) {
+          player.x = data.x;
+          player.y = data.y;
+          player.roomId = data.roomId;
+          io.emit('updatePlayers', backEndPlayers);
+        }
+      });
 
     socket.on('sendMessage', ({ roomId, senderId, message }) => {
         const timestamp = new Date();
