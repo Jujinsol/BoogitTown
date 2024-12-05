@@ -132,15 +132,17 @@ function canMoveTo(newX, newY) {
   }
   return map[row][col] == 0;
 }
+let isConfirmOpen = false; // 다이얼로그 플래그
 
 setInterval(() => {
   if (!frontEndPlayers[socket.id]) return;
+
   const player = frontEndPlayers[socket.id];
   let newX = player.x;
   let newY = player.y;
 
-  console.log(player.x + " "+player.y);
-  
+  console.log(player.x + " " + player.y + " " + currentRoomId);
+
   if (keys.w.pressed) {
     newY -= SPEED;
     if (canMoveTo(newX, newY)) {
@@ -173,8 +175,22 @@ setInterval(() => {
     }
   }
 
+  if (newX > 162 && newX < 197 && newY > 496 && newY < 511 && currentRoomId != 'IT 공대 단체 채팅') {
+    const flag = confirm('IT 공과대학 단체 대화방으로 입장하시겠습니까?');
+    if (flag) enterITChat();
+  }
 }, 15);
 
+function enterITChat() {
+  alert("IT 공과대학 단체 채팅에 입장합니다");
+  canvas.style.backgroundImage = "url('../img/ITChatRoom.png')";
+  canvas.width = 512;
+  canvas.height = 512;
+  currentRoomId = 'IT 공대 단체 채팅';
+  enterChatRoom();
+  loadMessages();
+  updateLayout();
+}
 
 window.addEventListener('keydown', (event) => {
   if (!frontEndPlayers[socket.id]) return
@@ -249,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 let userData;
-let currentRoomId = '메인채팅';
+let currentRoomId = '메인광장';
 
 document.querySelector('#loginForm').addEventListener('submit', async (event) => {
   event.preventDefault()
@@ -345,7 +361,7 @@ async function loadChatRooms() {
 
     // 채팅방 목록 생성
     chatRooms.forEach((room) => {
-      if (room.name == '메인채팅')
+      if (room.name == '메인광장')
         return;
       // 새로운 room div 생성
       const roomDiv = document.createElement('div');
@@ -412,6 +428,7 @@ function enterChatRoom() {
       return response.json();
     })
     .then(data => {
+      document.getElementById('myPlace').innerHTML = "현위치 : " + currentRoomId;      
     })
     .catch(error => {
       console.error('오류:', error.message);
@@ -528,6 +545,11 @@ function exitRoom() {
       return response.json();
     })
     .then(data => {
+      canvas.width = 1024 * devicePixelRatio;
+      canvas.height = 576 * devicePixelRatio;
+      canvas.style.backgroundImage = "url('../img/background.png')";
+      canvas.style.backgroundSize = "cover";
+      c.scale(devicePixelRatio, devicePixelRatio)
     })
     .catch(error => {
       console.error('오류:', error.message);
@@ -680,7 +702,7 @@ function updateLayout() {
     roomTop.removeChild(roomTitle);
     bottom.removeChild(roomTop);
     exitRoom();
-    currentRoomId = '메인채팅';
+    currentRoomId = '메인광장';
     enterChatRoom();
     loadMessages();
     resetLayout();
