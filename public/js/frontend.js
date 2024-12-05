@@ -183,7 +183,7 @@ setInterval(() => {
 
 function enterITChat() {
   alert("IT 공과대학 단체 채팅에 입장합니다");
-  canvas.style.backgroundImage = "url('../img/ITChatRoom.png')";
+  canvas.style.backgroundImage = "url('../img/ChatRoom.png')";
   canvas.width = 512;
   canvas.height = 512;
   currentRoomId = 'IT 공대 단체 채팅';
