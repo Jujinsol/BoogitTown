@@ -216,7 +216,7 @@ io.on('connection', (socket) => {
         io.emit('updatePlayers', backEndPlayers);
     });
 
-    socket.on('keydown', ({ keycode, sequenceNumber }) => {
+    socket.on('keydown', ({ keycode, sequenceNumber, imgSrc }) => {
         const backEndPlayer = backEndPlayers[socket.id];
 
         if (!backEndPlayers[socket.id]) return;
@@ -225,18 +225,22 @@ io.on('connection', (socket) => {
         switch (keycode) {
             case 'KeyW':
                 backEndPlayers[socket.id].y -= SPEED;
+                backEndPlayers[socket.id].imgSrc = imgSrc;
                 break;
 
             case 'KeyA':
                 backEndPlayers[socket.id].x -= SPEED;
+                backEndPlayers[socket.id].imgSrc = imgSrc;
                 break;
 
             case 'KeyS':
                 backEndPlayers[socket.id].y += SPEED;
+                backEndPlayers[socket.id].imgSrc = imgSrc;
                 break;
 
             case 'KeyD':
                 backEndPlayers[socket.id].x += SPEED;
+                backEndPlayers[socket.id].imgSrc = imgSrc;
                 break;
         }
 

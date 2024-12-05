@@ -16,7 +16,7 @@ const x = canvas.width / 2
 const y = canvas.height / 2
 
 const frontEndPlayers = {}
-
+/*
 socket.on('updatePlayers', (backEndPlayers) => {
   for (const id in backEndPlayers) {
     const backEndPlayer = backEndPlayers[id]
@@ -99,6 +99,52 @@ socket.on('updatePlayers', (backEndPlayers) => {
     }
   }
 })
+*/
+
+socket.on('updatePlayers', (backEndPlayers) => {
+  for (const id in backEndPlayers) {
+    const backEndPlayer = backEndPlayers[id];
+
+    if (!frontEndPlayers[id]) {
+      frontEndPlayers[id] = new Player({
+        x: backEndPlayer.x,
+        y: backEndPlayer.y,
+        radius: 10,
+        color: backEndPlayer.color,
+        username: backEndPlayer.username,
+        imgSrc: `./img/${backEndPlayer.imgSrc}.png`,
+        major: backEndPlayer.major,
+      });
+
+      document.querySelector(
+        '#playerLabels'
+      ).innerHTML += `<div data-id="${id}" data-score="${backEndPlayer.score}">${backEndPlayer.username}: ${backEndPlayer.score}</div>`;
+    } else {
+      // 기존 플레이어의 상태 업데이트
+      frontEndPlayers[id].updateDraw({
+        x: backEndPlayer.x,
+        y: backEndPlayer.y,
+        imgSrc: `./img/${backEndPlayer.imgSrc}.png`,
+      });
+    }
+
+    // 플레이어 점수 업데이트
+    const playerLabel = document.querySelector(`div[data-id="${id}"]`);
+    if (playerLabel) {
+      playerLabel.innerHTML = `${backEndPlayer.username}: ${backEndPlayer.score}`;
+    }
+  }
+
+  // 삭제된 플레이어 처리
+  for (const id in frontEndPlayers) {
+    if (!backEndPlayers[id]) {
+      const divToDelete = document.querySelector(`div[data-id="${id}"]`);
+      if (divToDelete) divToDelete.parentNode.removeChild(divToDelete);
+
+      delete frontEndPlayers[id];
+    }
+  }
+});
 
 let animationId
 function animate() {
@@ -191,7 +237,7 @@ setInterval(() => {
     newY -= SPEED;
     if (canMoveTo(newX, newY)) {
       playerInputs.push({ sequenceNumber, dx: 0, dy: -SPEED });
-      socket.emit('keydown', { keycode: 'KeyW', sequenceNumber });
+      socket.emit('keydown', { keycode: 'KeyW', sequenceNumber, imgSrc: 'playerUp' });
     }
   }
 
@@ -199,7 +245,7 @@ setInterval(() => {
     newX -= SPEED;
     if (canMoveTo(newX, newY)) {
       playerInputs.push({ sequenceNumber, dx: -SPEED, dy: 0 });
-      socket.emit('keydown', { keycode: 'KeyA', sequenceNumber });
+      socket.emit('keydown', { keycode: 'KeyA', sequenceNumber, imgSrc: 'playerLeft' });
     }
   }
 
@@ -207,7 +253,7 @@ setInterval(() => {
     newY += SPEED;
     if (canMoveTo(newX, newY)) {
       playerInputs.push({ sequenceNumber, dx: 0, dy: SPEED });
-      socket.emit('keydown', { keycode: 'KeyS', sequenceNumber });
+      socket.emit('keydown', { keycode: 'KeyS', sequenceNumber, imgSrc: 'playerDown' });
     }
   }
 
@@ -215,7 +261,7 @@ setInterval(() => {
     newX += SPEED;
     if (canMoveTo(newX, newY)) {
       playerInputs.push({ sequenceNumber, dx: SPEED, dy: 0 });
-      socket.emit('keydown', { keycode: 'KeyD', sequenceNumber });
+      socket.emit('keydown', { keycode: 'KeyD', sequenceNumber, imgSrc: 'playerRight' });
     }
   }
 }, 15);
