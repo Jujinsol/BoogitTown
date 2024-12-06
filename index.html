@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <div id="loginForm">
+        <form>
+            <img id="logo" src="img/boogietown-logo.png" />
+            <div class="Input">
+                <table>
+                    <tr>
+                        <td id="label-text">이메일 </td>
+                        <td><input id="loginEmail" type="email" placeholder="이메일" required></td>
+                    </tr>
+                    <tr>
+                        <td id="label-text">비밀번호 </td>
+                        <td><input id="loginPassword" type="password" placeholder="비밀번호" required></td>
+                    </tr>
+                </table>
+            </div>
+            <button type="submit" id="loginbutton">로그인</button>
+            <button onclick="goToSignup()" type="button" id="createAccount">계정 생성</button>
+        </form>
+    </div>
+
+    <div id="mainContent" style="display: none;">
+        <header>
+            <img id="logo" src="img/boogietown-logo.png" alt="Logo">
+            <div class="top2">
+                <div id="date"></div>
+                <div id="status">
+                    <div id="time"></div>
+                    <div id="participants">
+                        현재 인원
+                        <div id="people"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="notice">
+                <div id="title">📜 공지사항</div>
+                <div id="notice">asdf</div>
+                <div id="notice">asdfasdf</div>
+            </div>
+            <div class="menu">
+                <table>
+                    <tr>
+                        <td><button><img src="img/etc/explore.png" alt="Explore"></button></td>
+                        <td><button><img src="img/etc/friends.png" alt="Friends"></button></td>
+                    </tr>
+                    <tr>
+                        <td><button><img src="img/etc/notification.png" alt="Notifications"></button></td>
+                        <td><button onclick="goToMypage()"><img src="img/etc/settings.png" alt="Settings"></button></td>
+                    </tr>
+                </table>
+
+            </div>
+        </header>
+        <section class="left">
+            <div class="myProfile">
+                <div id="top">
+                    <div id="pic">
+                        <img id="myFace" />
+                    </div>
+                    <div id="info">
+                        <div id="myNickname">닉네임</div>
+                        <div id="myMajor">학부</div>
+                    </div>
+                </div>
+                <div class="bottom">
+                    <div id="myPlace">현위치 : </div>
+                </div>
+            </div>
+
+            <div id="rooms"></div>
+            <button id="makeRoomButton"><img src="img/etc/add_circle.png" />방 만들기</button>
+        </section>
+        <div class="roomModalContainer">
+            <form class="modal" id="createRoom">
+                <h1>방 만들기</h1>
+                <ul>
+                    제목 : <input type="text" id="titleInput" placeholder="방제목을 입력하세요">
+                    <button id="modalButton" onclick="CloseModal();" type="button">취소</button>
+                    <button id="modalButton" type="submit">만들기</button>
+                </ul>
+            </form>
+        </div>
+        <section id="right" style="display: block">
+            <div id="screen">
+                <div id="playerLabels" style="display: none;"></div>
+                <canvas style="width:100%"></canvas>
+            </div>
+            <div id="bottom">
+                <div id="chatMessages">
+                </div>
+                <div id="send">
+                    <input type="text" id="messageInput" placeholder="메시지를 입력하세요" style="width: 80%;">
+                    <button id="sendButton" onclick="sendMessage()">
+                        <img src="img/etc/send.png" />
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="mypage" style="display: none;">
+        <div class="mypageScreen">
+            <div class="mypageLeft">
+                <div id="mypageLeft1">
+                    <button onclick="goToMain()" id="mypageBackButton"><img id="arrowBack"
+                            src="img/etc/arrow_back.png" /></button>
+                </div>
+                <div id="mypageLeft2">
+                    <div class="box1">
+                        <div id="mypageProfile">
+                            <img id="mypageFace" src="img/default/01.png" />
+                        </div>
+                        <div id="mypageNickname">닉네임</div>
+                        <div id="mypageMajor">학부</div>
+                        <div class="buttonList">
+                            <div class="menuButton1">
+                                <div id="menuLayer">
+                                    <div id="content">내 정보 수정</div>
+                                    <div id="arrow">▶</div>
+                                </div>
+                                <div id="border2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mypageRight">
+                <div class="view">
+                    <div id="caption">
+                        <img src="img/etc/account.png" />
+                        <div id="label">기본 정보</div>
+                    </div>
+                    <div id="indicator"></div>
+                </div>
+                <div id="myProfile">
+                    <img id="myProfileImg" src="img/default/02.png" />
+                </div>
+                <div id="myName">이름 : </div>
+                <div id="myNum">학번 : </div>
+                <div class="group">
+                    <div id="myNickName">닉네임 : <input type="text" id="newNickname" name="textInput" /></div>
+                    <div id="myMajor">학부 :
+                        <select id="newMajor">
+                            <option value="IT공과대학">IT공과대학</option>
+                            <option value="인문예술대학">인문예술대학</option>
+                            <option value="인문예술대학">인문예술대학</option>
+                            <option value="사회과학대학">사회과학대학</option>
+                            <option value="디자인대학">디자인대학</option>
+                            <option value="미래플러스대학">미래플러스대학</option>
+                            <option value="상상력교양대학">상상력교양대학</option>
+                            <option value="글로벌인재학부">글로벌인재학부</option>
+                        </select>
+                    </div>
+                    <div id="myPwd">비밀번호 : <input type="password" id="newPass" name="textInput" /></div>
+                </div>
+                <button id="editButton"><img id="icon" src="img/etc/edit.png" />수정</button>
+                <div id="logout">
+                    <button id="logoutButton">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    /*
+    // 현재 시간을 1초 간격으로 업데이트
+    setInterval(() => {
+        const timeElement = document.getElementById('time');
+        if (timeElement) {
+            const now = new Date();
+            timeElement.textContent = now.toLocaleTimeString(); // 현재 시간을 표시
+        }
+    },1000); // 1초마다 실행
+*/
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.2/gsap.min.js"
+    integrity="sha512-kVlGhj2qFy+KBCFuvjBJTGUMxbdqJKs4yK2jh0e0VPhWUPiPC87bzm4THmaaIee3Oj7j6sDpTTgm2EPPiESqBg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+<script src="./js/classes/Enemy.js"></script>
+<script src="./js/classes/Player.js"></script>
+<script src="./js/frontend.js"></script>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    /*
+    const socket = io();
+
+    // 초기 상태: 로딩 중 표시
+    const peopleElement = document.getElementById('people');
+    if (peopleElement) {
+        peopleElement.textContent = '로딩 중...';
+    }
+
+    // 접속 인원 업데이트 이벤트 수신
+    socket.on('updateOnlineUsers', ({ onlineUsers }) => {
+        if (peopleElement) {
+            peopleElement.textContent = onlineUsers;
+        }
+    });
+
+    // 네트워크 오류 처리
+    socket.on('connect_error', () => {
+        if (peopleElement) {
+            peopleElement.textContent = '오류 발생';
+        }
+    });
+
+    // 현재 시간을 1초 간격으로 업데이트
+    setInterval(() => {
+        const timeElement = document.getElementById('time');
+        if (timeElement) {
+            const now = new Date();
+            timeElement.textContent = now.toLocaleTimeString(); // 현재 시간을 표시
+        }
+    }, 1000); // 1초마다 실행
+*/
+    const socket = io();
+
+    // 초기 상태: 로딩 중 표시
+    const peopleElement = document.getElementById('people');
+    if (peopleElement) {
+        peopleElement.textContent = '로딩 중...';
+    }
+
+    // 접속 인원 업데이트 이벤트 수신
+    socket.on('updateOnlineUsers', ({ roomId, onlineUsers }) => {
+        const roomElement = document.getElementById(`${roomId}`);
+        if (roomElement) {
+            roomElement.textContent = `인원수: ${onlineUsers}`;
+        }
+    });
+
+    // 네트워크 오류 처리
+    socket.on('connect_error', () => {
+        if (peopleElement) {
+            peopleElement.textContent = '오류 발생';
+        }
+    });
+
+
+
+</script>
+
+
+</html>
