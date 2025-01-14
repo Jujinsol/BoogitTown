@@ -9,11 +9,15 @@ npm start
 ```
 명령을 통해 프로그램을 실행할 수 있습니다.
 
-<img width="1390" alt="스크린샷 2025-01-14 오후 4 13 30" src="https://github.com/user-attachments/assets/c4e16026-f0e4-43a1-b5f9-4b4789e705b6" />
+<img width="1390" alt="스크린샷 2025-01-14 오후 4 13 34" src="https://github.com/user-attachments/assets/2dcc00ac-94be-419a-a3bc-94480b0da241" />
 
-<img width="1390" alt="스크린샷 2025-01-14 오후 4 13 34" src="https://github.com/user-attachments/assets/3691fd89-4218-48f5-b6e9-0b8313da1dc9" />
+<img width="1390" alt="스크린샷 2025-01-14 오후 4 13 30" src="https://github.com/user-attachments/assets/7353c11f-411b-4c68-8163-210b8e546c62" />
+자신의 정보를 활용해 회원가입 및 로그인할 수 있습니다.
 
-<img width="1159" alt="스크린샷 2025-01-14 오후 4 12 32" src="https://github.com/user-attachments/assets/62b84c51-c524-44c1-9efd-f263ce1b7add" />
+<img width="1159" alt="스크린샷 2025-01-14 오후 4 11 33" src="https://github.com/user-attachments/assets/1cd52e1a-4d9f-4853-a7e8-b36c04ae8da3" />
+<img width="1159" alt="스크린샷 2025-01-14 오후 4 12 32" src="https://github.com/user-attachments/assets/b6595c96-0819-4784-8a38-7e3bf6c83c94" />
+언제든 다른 사람의 움직임을 확인할 수 있습니다. 멀티 플레이어 방식을 차용한 프로그램입니다.
 
-<img width="1390" alt="스크린샷 2025-01-14 오후 4 13 21" src="https://github.com/user-attachments/assets/97293689-f1ec-4fbe-8141-0adc4cfa1c99" />
-언제든 새로운 채팅방을 생성해 원하는 사람과 대화할 수 있습니다.
+<img width="1390" alt="스크린샷 2025-01-14 오후 4 13 21" src="https://github.com/user-attachments/assets/09781e34-ad84-4af3-93bd-c4755718f1e4" />
+<img width="1390" alt="스크린샷 2025-01-14 오후 4 12 55" src="https://github.com/user-attachments/assets/410d6405-773c-4677-9921-2a9e8b95e8ef" />
+새로운 채팅방을 생성해 원하는 사람과 대화할 수 있습니다.
